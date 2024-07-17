@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
+import com.example.jetpackcompose.components.CredentialInput
 import com.example.jetpackcompose.ui.theme.JetPackComposeTheme
 
 class MainActivity : ComponentActivity() {

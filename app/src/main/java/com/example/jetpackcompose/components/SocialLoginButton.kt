@@ -1,4 +1,4 @@
-package com.example.jetpackcompose
+package com.example.jetpackcompose.components
 
 import android.util.Log
 import androidx.compose.animation.animateContentSize
@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.jetpackcompose.R
 import com.example.jetpackcompose.ui.theme.CompleteRoundedShape
 
 /**
