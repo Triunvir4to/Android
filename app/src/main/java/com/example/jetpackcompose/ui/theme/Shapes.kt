@@ -9,3 +9,5 @@ val Shapes = Shapes(
     medium = RoundedCornerShape(6.dp),
     large = RoundedCornerShape(8.dp)
 )
+
+val CompleteRoundedShape = RoundedCornerShape(percent = 100)

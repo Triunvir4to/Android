@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JetPackComposeTheme {
-                GoogleButton()
+                GoogleButton(stringResource(id = R.string.google_login_button))
             }
         }
     }

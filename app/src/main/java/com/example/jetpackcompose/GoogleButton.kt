@@ -6,7 +6,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -22,29 +21,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.jetpackcompose.ui.theme.Shapes
+import com.example.jetpackcompose.ui.theme.CompleteRoundedShape
 
 @Composable
-fun GoogleButton() {
+fun GoogleButton(
+    loadingText: String = "Creating account..."
+) {
     val clicked = remember { mutableStateOf(false) }
     Surface(
         onClick = {
             clicked.value = !clicked.value
         },
-        shape = Shapes.medium,
+        shape = CompleteRoundedShape,
         border = BorderStroke(width = 1.dp, color = Color.LightGray),
         color = MaterialTheme.colorScheme.surface
     ) {
         Row(
             modifier = Modifier
                 .padding(
-                    start = 12.dp,
-                    end = 16.dp,
-                    top = 12.dp,
-                    bottom = 12.dp
+                    all = 12.dp
                 )
                 .animateContentSize(
                     animationSpec = tween(
@@ -60,11 +57,15 @@ fun GoogleButton() {
                 contentDescription = "Google icon",
                 tint = Color.Unspecified
             )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(text = stringResource(id = R.string.google_login_button))
 
             if (clicked.value) {
-                Spacer(modifier = Modifier.width(16.dp))
+                Text(
+                    modifier = Modifier
+                        .padding(
+                            start = 8.dp, end = 8.dp,
+                            top = 0.dp, bottom = 0.dp
+                        ), text = loadingText
+                )
                 CircularProgressIndicator(
                     modifier = Modifier
                         .width(16.dp)
