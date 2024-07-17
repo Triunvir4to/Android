@@ -1,5 +1,6 @@
 package com.example.jetpackcompose
 
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -20,6 +21,7 @@ fun CredentialInput(
     icons: Array<Painter>,
     iconDescription: String,
     isPassword: Boolean = false,
+    keyBoardOptions: KeyboardOptions = KeyboardOptions()
 ) {
     val field = rememberSaveable { mutableStateOf("") }
     val passwordVisible = rememberSaveable { mutableStateOf(false) }
@@ -45,7 +47,9 @@ fun CredentialInput(
                 Icon(painter = icons[iconIdx], contentDescription = iconDescription)
             }
         },
-        visualTransformation = if (isPassword && passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation()
+        keyboardOptions = keyBoardOptions,
+        visualTransformation = if (isPassword && passwordVisible.value) VisualTransformation.None
+        else PasswordVisualTransformation()
     )
 }
 
