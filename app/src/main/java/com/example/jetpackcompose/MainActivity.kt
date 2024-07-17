@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.selection.DisableSelection
 import androidx.compose.foundation.text.selection.SelectionContainer
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -33,6 +34,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import com.example.jetpackcompose.ui.theme.JetPackComposeTheme
 
@@ -64,6 +66,12 @@ fun TestCoilLib() {
             val painter =
                 rememberAsyncImagePainter(model = "https://avatars.githubusercontent.com/u/75641510?v=4")
             Image(painter = painter, contentDescription = "Github Image")
+
+            val painterState = painter.state
+
+            if (painterState is AsyncImagePainter.State.Loading)
+                CircularProgressIndicator()
+
         }
     }
 }
