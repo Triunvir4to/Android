@@ -138,6 +138,6 @@ fun ExpandableCard(
 
 @Preview
 @Composable
-fun ExpandableCardPreview() {
+private fun ExpandableCardPreview() {
     ExpandableCard(title = "Teste", bodyText = "testando meu componente")
 }
