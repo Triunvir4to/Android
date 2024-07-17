@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
@@ -32,7 +31,9 @@ fun SocialLoginButton(
     loadingText: String = "Creating account...",
     icon: Painter,
     iconDescription: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    backgroundColor: Color = MaterialTheme.colorScheme.surface,
+    progressIndicatorColor: Color = MaterialTheme.colorScheme.primary
 ) {
     val clicked = remember { mutableStateOf(false) }
     Surface(
@@ -42,8 +43,7 @@ fun SocialLoginButton(
             onClick()
         },
         shape = CompleteRoundedShape,
-        border = BorderStroke(width = 1.dp, color = Color.LightGray),
-        color = MaterialTheme.colorScheme.surface
+        color = backgroundColor
     ) {
         Row(
             modifier = Modifier
@@ -78,7 +78,7 @@ fun SocialLoginButton(
                         .width(16.dp)
                         .height(16.dp),
                     strokeWidth = 2.dp,
-                    color = MaterialTheme.colorScheme.primary
+                    color = progressIndicatorColor
                 )
             }
         }
