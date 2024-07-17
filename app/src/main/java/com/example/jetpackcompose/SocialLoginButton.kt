@@ -1,5 +1,6 @@
 package com.example.jetpackcompose
 
+import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -20,19 +21,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcompose.ui.theme.CompleteRoundedShape
 
 @Composable
-fun GoogleButton(
-    loadingText: String = "Creating account..."
+fun SocialLoginButton(
+    loadingText: String = "Creating account...",
+    icon: Painter,
+    iconDescription: String,
+    onClick: () -> Unit
 ) {
     val clicked = remember { mutableStateOf(false) }
     Surface(
         onClick = {
             clicked.value = !clicked.value
+            onClick()
         },
         shape = CompleteRoundedShape,
         border = BorderStroke(width = 1.dp, color = Color.LightGray),
@@ -53,8 +59,8 @@ fun GoogleButton(
             horizontalArrangement = Arrangement.Center
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_google),
-                contentDescription = "Google icon",
+                painter = icon,
+                contentDescription = iconDescription,
                 tint = Color.Unspecified
             )
 
@@ -80,6 +86,11 @@ fun GoogleButton(
 
 @Composable
 @Preview
-private fun GoogleButtonPreview() {
-    GoogleButton()
+private fun SocialLoginButtonPreview() {
+    SocialLoginButton(
+        icon = painterResource(id = R.drawable.ic_google),
+        iconDescription = "Google Icon",
+        onClick = {
+            Log.d("Loging", "Google Login")
+        })
 }

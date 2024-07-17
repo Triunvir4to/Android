@@ -1,6 +1,7 @@
 package com.example.jetpackcompose
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -21,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -38,7 +40,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JetPackComposeTheme {
-                GoogleButton(stringResource(id = R.string.google_login_button))
+                SocialLoginButton(
+                    loadingText = stringResource(id = R.string.login_button),
+                    icon = painterResource(id = R.drawable.ic_google),
+                    iconDescription = "Google Icon",
+                    onClick = {
+                        Log.d("Loging", "Google Login")
+                    }
+                )
             }
         }
     }
