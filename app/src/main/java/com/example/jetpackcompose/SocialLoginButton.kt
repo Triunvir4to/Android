@@ -36,6 +36,7 @@ fun SocialLoginButton(
 ) {
     val clicked = remember { mutableStateOf(false) }
     Surface(
+        enabled = !clicked.value,
         onClick = {
             clicked.value = !clicked.value
             onClick()
