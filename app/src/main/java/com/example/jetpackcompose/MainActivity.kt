@@ -141,7 +141,7 @@ fun SuperScriptText(
                 fontWeight = FontWeight.Normal,
                 baselineShift = BaselineShift.Superscript
             )
-        ){
+        ) {
             append(superText)
         }
     })
