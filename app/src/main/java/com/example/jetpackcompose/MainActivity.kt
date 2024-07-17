@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -44,7 +45,20 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JetPackComposeTheme {
-                TestCoilLib()
+                Row(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ){
+                    CredentialInput(
+                        placeHolder = "Password",
+                        iconDescription = "Password visibility",
+                        icons = arrayOf(painterResource(id = R.drawable.ic_visibility_off), painterResource(
+                            id = R.drawable.ic_visibility
+                        )),
+                        isPassword = true,
+                    )
+                }
             }
         }
     }
