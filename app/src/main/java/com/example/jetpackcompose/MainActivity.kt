@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JetPackComposeTheme {
-                ExpandableCard("Teste", "testando meu componente")
+                ExpandableCard(title = "Teste", bodyText = "testando meu componente")
             }
         }
     }

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Card
@@ -27,6 +28,8 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcompose.ui.theme.Shapes
 
@@ -34,7 +37,14 @@ import com.example.jetpackcompose.ui.theme.Shapes
 @Composable
 fun ExpandableCard(
     title: String,
-    bodyText: String
+    titleFontSize: TextUnit = MaterialTheme.typography.titleSmall.fontSize,
+    titleFontWeight: FontWeight = FontWeight.Bold,
+    bodyText: String,
+    bodyFontSize: TextUnit = MaterialTheme.typography.bodyMedium.fontSize,
+    bodyFontWeight: FontWeight = FontWeight.Normal,
+    bodyMaxLines: Int = 4,
+    shape: CornerBasedShape = Shapes.medium,
+    padding: Dp = 12.dp
 ) {
     val expandableState = remember { mutableStateOf(false) }
     val rotationState by animateFloatAsState(
@@ -50,7 +60,7 @@ fun ExpandableCard(
                     easing = LinearOutSlowInEasing
                 )
             ),
-        shape = Shapes.medium,
+        shape = shape,
         onClick = {
             expandableState.value = !expandableState.value
         }
@@ -58,7 +68,7 @@ fun ExpandableCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp)
+                .padding(padding)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -67,8 +77,8 @@ fun ExpandableCard(
             ) {
                 Text(
                     text = title,
-                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                    fontWeight = FontWeight.Bold,
+                    fontSize = titleFontSize,
+                    fontWeight = titleFontWeight,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -87,9 +97,9 @@ fun ExpandableCard(
             if (expandableState.value) {
                 Text(
                     text = bodyText,
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    fontWeight = FontWeight.Normal,
-                    maxLines = 4,
+                    fontSize = bodyFontSize,
+                    fontWeight = bodyFontWeight,
+                    maxLines = bodyMaxLines,
                     overflow = TextOverflow.Ellipsis
                 )
             }
@@ -100,5 +110,5 @@ fun ExpandableCard(
 @Preview
 @Composable
 fun ExpandableCardPreview() {
-    ExpandableCard("Teste", "testando meu componente")
+    ExpandableCard(title = "Teste", bodyText = "testando meu componente")
 }
