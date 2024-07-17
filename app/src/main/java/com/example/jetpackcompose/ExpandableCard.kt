@@ -33,7 +33,28 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcompose.ui.theme.Shapes
 
-
+/**
+ * A custom composable function that creates an expandable card, allowing content to be shown or hidden with an animation.
+ * The card includes a title and a body, with the body text expandable on user interaction.
+ *
+ * @param title The text to be displayed as the title of the card.
+ * @param titleFontSize The font size for the title text. Defaults to the small title size from the material theme.
+ * @param titleFontWeight The font weight for the title text. Defaults to Bold.
+ * @param bodyText The text content that is expandable/collapsible when the card is interacted with.
+ * @param bodyFontSize The font size for the body text. Defaults to the medium body size from the material theme.
+ * @param bodyFontWeight The font weight for the body text. Defaults to Normal.
+ * @param bodyMaxLines The maximum lines the body text is allowed to wrap. Defaults to 4.
+ * @param shape The shape of the card, affecting corner styling. Defaults to medium rounded corners.
+ * @param padding The padding inside the card, affecting the spacing around the content. Defaults to 12dp.
+ *
+ * Example Usage:
+ * ```
+ * ExpandableCard(
+ *     title = "Expandable Card",
+ *     bodyText = "This is the detailed description that can be expanded or collapsed."
+ * )
+ * ```
+ */
 @Composable
 fun ExpandableCard(
     title: String,
