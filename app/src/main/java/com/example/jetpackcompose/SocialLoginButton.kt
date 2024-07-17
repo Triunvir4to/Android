@@ -26,6 +26,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcompose.ui.theme.CompleteRoundedShape
 
+/**
+ * A composable function that creates a social login button.
+ *
+ * This button shows an icon and changes its content to display a loading text and a progress indicator
+ * when clicked. The button is meant to be used for social login actions, where the user can initiate
+ * a login process by clicking the button.
+ *
+ * @param loadingText The text to display when the button is in a loading state. Defaults to "Creating account...".
+ * @param icon The painter for the icon to be displayed inside the button.
+ * @param iconDescription A descriptive text for the icon, used for accessibility purposes.
+ * @param onClick A lambda function that gets triggered when the button is clicked.
+ * @param backgroundColor The background color of the button. Defaults to the surface color from the material theme.
+ * @param progressIndicatorColor The color of the progress indicator displayed when the button is in the loading state.
+ *                               Defaults to the primary color from the material theme.
+ */
 @Composable
 fun SocialLoginButton(
     loadingText: String = "Creating account...",
