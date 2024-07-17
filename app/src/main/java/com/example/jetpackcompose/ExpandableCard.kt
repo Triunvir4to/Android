@@ -4,6 +4,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -65,8 +67,10 @@ fun ExpandableCard(
     bodyFontWeight: FontWeight = FontWeight.Normal,
     bodyMaxLines: Int = 4,
     shape: CornerBasedShape = Shapes.medium,
-    padding: Dp = 12.dp
-) {
+    padding: Dp = 12.dp,
+    backgroundColor: Color = MaterialTheme.colorScheme.primary,
+    textColor: Color = MaterialTheme.colorScheme.onPrimary
+    ) {
     val expandableState = remember { mutableStateOf(false) }
     val rotationState by animateFloatAsState(
         targetValue = if (expandableState.value) 180f else 0f, label = "Card expanding animation"
@@ -75,6 +79,7 @@ fun ExpandableCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .background(backgroundColor)
             .animateContentSize(
                 animationSpec = tween(
                     durationMillis = 300,
@@ -82,6 +87,7 @@ fun ExpandableCard(
                 )
             ),
         shape = shape,
+
         onClick = {
             expandableState.value = !expandableState.value
         }
@@ -101,7 +107,8 @@ fun ExpandableCard(
                     fontSize = titleFontSize,
                     fontWeight = titleFontWeight,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    color = textColor
                 )
                 IconButton(
                     modifier = Modifier
@@ -121,7 +128,8 @@ fun ExpandableCard(
                     fontSize = bodyFontSize,
                     fontWeight = bodyFontWeight,
                     maxLines = bodyMaxLines,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    color = textColor
                 )
             }
         }
