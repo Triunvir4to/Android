@@ -6,6 +6,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
@@ -20,7 +21,7 @@ fun ProgressIndicator(
     canvasSize: Dp = 300.dp,
     indicatorValue: Int = 0,
     maxIndicatorValue: Int = 100,
-    backgroundIndicatorColor: Color = MaterialTheme.colorScheme.onSurface,
+    backgroundIndicatorColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
     backGroundIndicatorStrokeWidth: Float = 100f
 ) {
     Column(
@@ -53,6 +54,10 @@ fun DrawScope.backgroundIndicator(
         style = Stroke(
             cap = StrokeCap.Round,
             width = indicatorStrokeWidth
+        ),
+        topLeft = Offset(
+            x = (size.width - componentSize.width) / 2,
+            y = (size.height - componentSize.height) / 2
         )
     )
 }
