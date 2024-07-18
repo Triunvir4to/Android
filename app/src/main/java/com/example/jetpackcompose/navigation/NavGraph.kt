@@ -4,6 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.jetpackcompose.screens.Detail
+import com.example.jetpackcompose.screens.DetailScreen
+import com.example.jetpackcompose.screens.Home
+import com.example.jetpackcompose.screens.HomeScreen
 
 @Composable
 fun NavGraph(
@@ -11,16 +15,14 @@ fun NavGraph(
 ) {
     NavHost(
         navController = navHostController,
-        startDestination = Screen.Home.route,
+        startDestination = HomeScreen,
     ) {
-        composable(
-            route = Screen.Home.route,
-            content = { Screen.Home.content(navHostController) }
-        )
+        composable<HomeScreen>{
+            Home(navHostController)
+        }
 
-        composable(
-            route = Screen.Detail.route,
-            content = { Screen.Detail.content(navHostController) }
-        )
+        composable<DetailScreen>{
+            Detail(navHostController)
+        }
     }
 }

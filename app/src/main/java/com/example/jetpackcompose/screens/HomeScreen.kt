@@ -12,20 +12,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.jetpackcompose.navigation.Screen
+import kotlinx.serialization.Serializable
+
+@Serializable
+object HomeScreen
 
 @Composable
-fun HomeScreen(
-    navController: NavController? = null
+fun Home(
+    navController: NavController? = null,
 ) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            modifier = Modifier.clickable{
+            modifier = Modifier.clickable {
                 navController?.navigate(
-                    route = Screen.Detail.route
+                    DetailScreen
                 )
             },
             text = "Home",
@@ -38,6 +41,6 @@ fun HomeScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun HomeScreenPreview(){
-    HomeScreen(rememberNavController())
+private fun HomeScreenPreview() {
+    Home(rememberNavController())
 }

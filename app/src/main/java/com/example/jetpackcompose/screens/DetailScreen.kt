@@ -12,9 +12,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import kotlinx.serialization.Serializable
+
+@Serializable
+object DetailScreen
 
 @Composable
-fun DetailScreen(
+fun Detail(
     navController: NavController? = null
 ) {
     Box(
@@ -36,5 +40,5 @@ fun DetailScreen(
 @Preview(showBackground = true)
 @Composable
 private fun DetailScreenPreview() {
-    DetailScreen()
+    Detail()
 }
