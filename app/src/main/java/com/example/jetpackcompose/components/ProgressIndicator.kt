@@ -125,6 +125,19 @@ private fun EmbedElements(
     )
 }
 
+/**
+ * Draws a rounded background indicator arc on the canvas.
+ *
+ * This function draws an arc representing the foreground indicator of a circular component,
+ * such as a progress bar or a meter. The arc starts from a 150-degree angle and sweeps across
+ * based on the specified `sweepAngle`. The arc is centered within the provided component size
+ * and is styled according to the specified color and stroke width.
+ *
+ * @param sweepAngle The angle, in degrees, to sweep the arc (e.g., how much of the circle to cover).
+ * @param componentSize The size of the component within which the arc is drawn. It determines the overall size of the arc.
+ * @param indicatorColor The color to use for the indicator arc.
+ * @param indicatorStrokeWidth The thickness of the indicator arc's line.
+ */
 private fun DrawScope.backgroundIndicator(
     componentSize: Size,
     indicatorColor: Color,
@@ -147,6 +160,19 @@ private fun DrawScope.backgroundIndicator(
     )
 }
 
+/**
+ * Draws a rounded foreground indicator arc on the canvas.
+ *
+ * This function draws an arc representing the foreground indicator of a circular component,
+ * such as a progress bar or a meter. The arc starts from a 150-degree angle and sweeps across
+ * based on the specified `sweepAngle`. The arc is centered within the provided component size
+ * and is styled according to the specified color and stroke width.
+ *
+ * @param sweepAngle The angle, in degrees, to sweep the arc (e.g., how much of the circle to cover).
+ * @param componentSize The size of the component within which the arc is drawn. It determines the overall size of the arc.
+ * @param indicatorColor The color to use for the indicator arc.
+ * @param indicatorStrokeWidth The thickness of the indicator arc's line.
+ */
 private fun DrawScope.foregroundIndicator(
     sweepAngle: Float,
     componentSize: Size,
