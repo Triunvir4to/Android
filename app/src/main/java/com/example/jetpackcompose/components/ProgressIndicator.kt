@@ -10,7 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -66,13 +66,13 @@ fun ProgressIndicator(
     smallTextFontSize: TextUnit = MaterialTheme.typography.headlineSmall.fontSize,
     smallTextColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
 ) {
-    val animatedIndicatorValue = remember { mutableStateOf(0f) }
+    val animatedIndicatorValue = remember { mutableFloatStateOf(0f) }
     LaunchedEffect(key1 = indicatorValue) {
-        animatedIndicatorValue.value = indicatorValue.toFloat()
+        animatedIndicatorValue.floatValue = indicatorValue.toFloat()
     }
 
     val percentage =
-        min((animatedIndicatorValue.value / maxIndicatorValue) * 100, 100f)
+        min((animatedIndicatorValue.floatValue / maxIndicatorValue) * 100, 100f)
     val sweepAngle = animateFloatAsState(
         targetValue = (2.4 * percentage).toFloat(),
         animationSpec = tween(
@@ -85,7 +85,8 @@ fun ProgressIndicator(
         targetValue = indicatorValue,
         animationSpec = tween(
             durationMillis = 1000
-        )
+        ),
+        label = "Indicator Number Animation"
     )
 
     Column(
@@ -169,7 +170,6 @@ private fun EmbedElements(
  * based on the specified `sweepAngle`. The arc is centered within the provided component size
  * and is styled according to the specified color and stroke width.
  *
- * @param sweepAngle The angle, in degrees, to sweep the arc (e.g., how much of the circle to cover).
  * @param componentSize The size of the component within which the arc is drawn. It determines the overall size of the arc.
  * @param indicatorColor The color to use for the indicator arc.
  * @param indicatorStrokeWidth The thickness of the indicator arc's line.
