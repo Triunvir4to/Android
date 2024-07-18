@@ -17,5 +17,10 @@ fun NavGraph(
             route = Screen.Home.route,
             content = { Screen.Home.content() }
         )
+
+        composable(
+            route = Screen.Detail.route,
+            content = { Screen.Detail.content() }
+        )
     }
 }

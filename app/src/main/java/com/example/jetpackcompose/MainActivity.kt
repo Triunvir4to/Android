@@ -42,9 +42,11 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import com.example.jetpackcompose.components.ProgressIndicator
+import com.example.jetpackcompose.navigation.NavGraph
 import com.example.jetpackcompose.repository.PersonRepository
 import com.example.jetpackcompose.ui.theme.JetPackComposeTheme
 
@@ -54,7 +56,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JetPackComposeTheme {
-
+                val navController = rememberNavController()
+                NavGraph(navHostController = navController)
             }
         }
     }
@@ -62,7 +65,7 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun UsingProgressIndicator(){
+fun UsingProgressIndicator() {
     val indicatorValue = remember { mutableStateOf(0) }
 
     Column(
