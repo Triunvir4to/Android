@@ -1,5 +1,6 @@
 package com.example.jetpackcompose.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -21,6 +22,9 @@ fun DetailScreen(
         contentAlignment = Alignment.Center
     ) {
         Text(
+            modifier = Modifier.clickable {
+                navController?.popBackStack()
+            },
             text = "Detail",
             color = Color.Red,
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
