@@ -29,6 +29,27 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import kotlin.math.min
 
+/**
+ * Displays a circular progress indicator with customizable text elements.
+ *
+ * This composable function renders a circular progress indicator that animates both the progress arc and the numerical value.
+ * It also displays two text elements inside the circle: a large text showing the current progress with a suffix and a smaller text label.
+ * The function allows extensive customization including colors, sizes, and text styles.
+ *
+ * @param canvasSize The size of the canvas on which the indicator is drawn, defaulting to 300.dp.
+ * @param indicatorValue The current value of the indicator which is animated smoothly from 0 to this value.
+ * @param maxIndicatorValue The maximum value the indicator can reach, defaulting to 100.
+ * @param backgroundIndicatorColor The color of the indicator's background arc, defaulting to a lightly opaque version of the surface color.
+ * @param backGroundIndicatorStrokeWidth The stroke width of the background indicator arc, defaulting to 100f.
+ * @param foregroundIndicatorColor The color of the foreground indicator arc, which represents actual progress, defaulting to the primary color of the theme.
+ * @param foregroundIndicatorStrokeWidth The stroke width of the foreground indicator arc, defaulting to 100f.
+ * @param bigTextFontSize The font size for the larger text element showing the numerical value, derived from the theme's headline medium size.
+ * @param bigTextColor The color of the larger text, defaulting to the on-surface color of the theme.
+ * @param bigTextSuffix A string suffix to append to the big text.
+ * @param smallText The text for the smaller label, defaulting to "remaining".
+ * @param smallTextFontSize The font size for the smaller text label, derived from the theme's headline small size.
+ * @param smallTextColor The color of the smaller text label, defaulting to a lightly opaque version of the on-surface color.
+ */
 @Composable
 fun ProgressIndicator(
     canvasSize: Dp = 300.dp,
@@ -99,6 +120,21 @@ fun ProgressIndicator(
     }
 }
 
+/**
+ * Composes two text elements, one large and one small, with distinct styling options.
+ *
+ * This function creates a composable UI element that embeds two Text components - one displaying a large number with a suffix,
+ * and another displaying a smaller, simpler text. Both texts are centered and styled independently according to the parameters.
+ * The large text includes a suffix, of which only the first two characters are used, and is displayed in a bold font weight.
+ *
+ * @param bigText The integer value to display as the big text.
+ * @param bigTextFontSize The font size for the big text.
+ * @param bigTextColor The color of the big text.
+ * @param bigTextSuffix A string suffix to append to the big text, only the first two characters of which are displayed.
+ * @param smallText The string to display as the small text.
+ * @param smallTextColor The color of the small text.
+ * @param smallTextFontSize The font size for the small text.
+ */
 @Composable
 private fun EmbedElements(
     bigText: Int,
