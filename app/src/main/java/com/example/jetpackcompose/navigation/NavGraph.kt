@@ -15,12 +15,12 @@ fun NavGraph(
     ) {
         composable(
             route = Screen.Home.route,
-            content = { Screen.Home.content() }
+            content = { Screen.Home.content(navHostController) }
         )
 
         composable(
             route = Screen.Detail.route,
-            content = { Screen.Detail.content() }
+            content = { Screen.Detail.content(navHostController) }
         )
     }
 }
