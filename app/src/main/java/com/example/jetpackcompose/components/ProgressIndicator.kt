@@ -1,14 +1,17 @@
 package com.example.jetpackcompose.components
 
-import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
@@ -17,8 +20,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import kotlin.math.min
 
@@ -30,11 +36,17 @@ fun ProgressIndicator(
     backgroundIndicatorColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
     backGroundIndicatorStrokeWidth: Float = 100f,
     foregroundIndicatorColor: Color = MaterialTheme.colorScheme.primary,
-    foregroundIndicatorStrokeWidth: Float = 100f
+    foregroundIndicatorStrokeWidth: Float = 100f,
+    bigTextFontSize: TextUnit = MaterialTheme.typography.headlineMedium.fontSize,
+    bigTextColor: Color = MaterialTheme.colorScheme.onSurface,
+    bigTextSuffix: String,
+    smallText: String = "remaining",
+    smallTextFontSize: TextUnit = MaterialTheme.typography.headlineSmall.fontSize,
+    smallTextColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
 ) {
-    val animatedIndicatorValue = remember { Animatable(initialValue = 0f) }
+    val animatedIndicatorValue = remember { mutableStateOf(0f) }
     LaunchedEffect(key1 = indicatorValue) {
-        animatedIndicatorValue.animateTo(indicatorValue.toFloat())
+        animatedIndicatorValue.value = indicatorValue.toFloat()
     }
 
     val percentage =
@@ -63,10 +75,46 @@ fun ProgressIndicator(
                     indicatorColor = foregroundIndicatorColor,
                     indicatorStrokeWidth = foregroundIndicatorStrokeWidth,
                 )
-            }
+            },
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
+        EmbedElements(
+            bigText = indicatorValue,
+            bigTextFontSize = bigTextFontSize,
+            bigTextColor = bigTextColor,
+            bigTextSuffix = bigTextSuffix,
+            smallText = smallText,
+            smallTextColor = smallTextColor,
+            smallTextFontSize = smallTextFontSize
+        )
     }
+}
+
+@Composable
+private fun EmbedElements(
+    bigText: Int,
+    bigTextFontSize: TextUnit,
+    bigTextColor: Color,
+    bigTextSuffix: String,
+    smallText: String,
+    smallTextColor: Color,
+    smallTextFontSize: TextUnit
+) {
+    Text(
+        text = smallText,
+        color = smallTextColor,
+        fontSize = smallTextFontSize,
+        textAlign = TextAlign.Center
+    )
+
+    Text(
+        text = "$bigText ${bigTextSuffix.take(2)}",
+        color = bigTextColor,
+        fontSize = bigTextFontSize,
+        textAlign = TextAlign.Center,
+        fontWeight = FontWeight.Bold
+    )
 }
 
 private fun DrawScope.backgroundIndicator(
@@ -117,5 +165,7 @@ private fun DrawScope.foregroundIndicator(
 @Preview
 @Composable
 private fun ProgressIndicatorPreview() {
-    ProgressIndicator()
+    ProgressIndicator(
+        bigTextSuffix = "GB"
+    )
 }

@@ -62,7 +62,8 @@ class MainActivity : ComponentActivity() {
                     verticalArrangement = Arrangement.Center
                 ) {
                     ProgressIndicator(
-                        indicatorValue = indicatorValue.value
+                        indicatorValue = indicatorValue.value,
+                        bigTextSuffix = "GB"
                     )
                     TextField(
                         value = indicatorValue.value.toString(), onValueChange = {
