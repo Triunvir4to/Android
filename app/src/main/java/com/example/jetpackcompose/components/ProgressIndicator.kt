@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlin.math.min
 
 @Composable
 fun ProgressIndicator(
@@ -37,7 +38,7 @@ fun ProgressIndicator(
     }
 
     val percentage =
-        (animatedIndicatorValue.value / maxIndicatorValue) * 100
+        min((animatedIndicatorValue.value / maxIndicatorValue) * 100, 100f)
     val sweepAngle = animateFloatAsState(
         targetValue = (2.4 * percentage).toFloat(),
         animationSpec = tween(
