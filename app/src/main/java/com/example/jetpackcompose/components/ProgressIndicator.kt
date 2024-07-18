@@ -1,6 +1,7 @@
 package com.example.jetpackcompose.components
 
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -59,6 +60,13 @@ fun ProgressIndicator(
         label = "Indicator Animation"
     )
 
+    val receivedValue = animateIntAsState(
+        targetValue = indicatorValue,
+        animationSpec = tween(
+            durationMillis = 1000
+        )
+    )
+
     Column(
         modifier = Modifier
             .size(canvasSize)
@@ -80,7 +88,7 @@ fun ProgressIndicator(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         EmbedElements(
-            bigText = indicatorValue,
+            bigText = receivedValue.value,
             bigTextFontSize = bigTextFontSize,
             bigTextColor = bigTextColor,
             bigTextSuffix = bigTextSuffix,
