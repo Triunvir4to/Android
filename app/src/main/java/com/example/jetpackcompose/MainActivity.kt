@@ -54,28 +54,34 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JetPackComposeTheme {
-                val indicatorValue = remember { mutableStateOf(0) }
 
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    ProgressIndicator(
-                        indicatorValue = indicatorValue.value,
-                        bigTextSuffix = "GB"
-                    )
-                    TextField(
-                        value = indicatorValue.value.toString(), onValueChange = {
-                            indicatorValue.value = if (it.isNotEmpty()) it.toInt() else 0
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Number
-                        )
-                    )
-                }
             }
         }
+    }
+}
+
+
+@Composable
+fun UsingProgressIndicator(){
+    val indicatorValue = remember { mutableStateOf(0) }
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        ProgressIndicator(
+            indicatorValue = indicatorValue.value,
+            bigTextSuffix = "GB"
+        )
+        TextField(
+            value = indicatorValue.value.toString(), onValueChange = {
+                indicatorValue.value = if (it.isNotEmpty()) it.toInt() else 0
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number
+            )
+        )
     }
 }
 
