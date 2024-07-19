@@ -6,6 +6,7 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -14,15 +15,17 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.jetpackcompose.screens.DetailScreen
+import com.example.jetpackcompose.screens.HomeScreen
 import com.example.jetpackcompose.screens.Screen
+import com.example.jetpackcompose.screens.SettingsScreen
 
 @Composable
-fun <T : Any> RowScope.AddItem(
-    screen: Screen<T>,
+fun RowScope.AddItem(
+    currentScreenTitle: MutableState<String>,
+    screen: Screen<out Any>,
     currentDestination: NavDestination?,
     navController: NavHostController
 ) {
-    val currentScreenTitle = remember { mutableStateOf("Home") }
     currentDestination?.hierarchy?.let {
         NavigationBarItem(
             label = {
@@ -40,6 +43,12 @@ fun <T : Any> RowScope.AddItem(
             onClick = {
                 currentScreenTitle.value = screen.title
                 when (screen) {
+                    is Screen.Home -> {
+                        navController.navigate(
+                            HomeScreen
+                        )
+                    }
+
                     is Screen.Profile -> {
                         navController.navigate(
                             DetailScreen(
@@ -48,9 +57,9 @@ fun <T : Any> RowScope.AddItem(
                         )
                     }
 
-                    else -> {
+                    is Screen.Settings -> {
                         navController.navigate(
-                            screen.identifier
+                            SettingsScreen
                         )
                     }
                 }
@@ -67,9 +76,11 @@ fun BottomBar(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestinantion = navBackStackEntry?.destination
 
-    NavigationBar() {
+    NavigationBar {
+        val currentScreenTitle = remember { mutableStateOf("Home") }
         screens.forEach { screen ->
             AddItem(
+                currentScreenTitle = currentScreenTitle,
                 screen = screen,
                 currentDestination = currentDestinantion,
                 navController = navController

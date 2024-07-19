@@ -46,7 +46,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import com.example.jetpackcompose.components.ProgressIndicator
-import com.example.jetpackcompose.navigation.NavGraph
+import com.example.jetpackcompose.layout.MainLayout
 import com.example.jetpackcompose.repository.PersonRepository
 import com.example.jetpackcompose.ui.theme.JetPackComposeTheme
 
@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetPackComposeTheme {
                 val navController = rememberNavController()
-                NavGraph(navHostController = navController)
+                MainLayout(navController = navController)
             }
         }
     }
