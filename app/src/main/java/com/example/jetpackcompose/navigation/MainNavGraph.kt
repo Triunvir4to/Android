@@ -13,7 +13,7 @@ import com.example.jetpackcompose.screens.Settings
 import com.example.jetpackcompose.screens.SettingsScreen
 
 @Composable
-fun NavGraph(
+fun MainNavGraph(
     navHostController: NavHostController
 ) {
     NavHost(

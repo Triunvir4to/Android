@@ -62,7 +62,7 @@ fun <T : Any> RowScope.AddItem(
 @Composable
 fun BottomBar(
     navController: NavHostController,
-    screens: List<Screen<Any>>
+    screens: List<Screen<out Any>>
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestinantion = navBackStackEntry?.destination
