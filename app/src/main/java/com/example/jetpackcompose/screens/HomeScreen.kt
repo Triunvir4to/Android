@@ -28,7 +28,9 @@ fun Home(
         Text(
             modifier = Modifier.clickable {
                 navController?.navigate(
-                    DetailScreen
+                    DetailScreen(
+                        id = 1
+                    )
                 )
             },
             text = "Home",
