@@ -46,7 +46,9 @@ fun RowScope.AddItem(
                     is Screen.Home -> {
                         navController.navigate(
                             HomeScreen
-                        )
+                        ){
+                            launchSingleTop = true
+                        }
                     }
 
                     is Screen.Profile -> {
@@ -54,13 +56,17 @@ fun RowScope.AddItem(
                             DetailScreen(
                                 id = 30
                             )
-                        )
+                        ){
+                            launchSingleTop = true
+                        }
                     }
 
                     is Screen.Settings -> {
                         navController.navigate(
                             SettingsScreen
-                        )
+                        ){
+                            launchSingleTop = true
+                        }
                     }
                 }
             }
