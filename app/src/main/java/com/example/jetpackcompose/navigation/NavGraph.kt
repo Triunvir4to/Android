@@ -9,6 +9,8 @@ import com.example.jetpackcompose.screens.Detail
 import com.example.jetpackcompose.screens.DetailScreen
 import com.example.jetpackcompose.screens.Home
 import com.example.jetpackcompose.screens.HomeScreen
+import com.example.jetpackcompose.screens.Settings
+import com.example.jetpackcompose.screens.SettingsScreen
 
 @Composable
 fun NavGraph(
@@ -24,6 +26,10 @@ fun NavGraph(
 
         composable<DetailScreen> {
             Detail(navHostController, it.toRoute<DetailScreen>().id)
+        }
+
+        composable<SettingsScreen> {
+            Settings(navHostController)
         }
     }
 }
