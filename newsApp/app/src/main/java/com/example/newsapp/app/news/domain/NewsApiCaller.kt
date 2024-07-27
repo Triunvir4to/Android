@@ -3,7 +3,9 @@ package com.example.newsapp.app.news.domain
 import com.example.newsapp.api.ApiCaller
 import com.example.newsapp.api.ApiImplementation
 import com.example.newsapp.api.ApiResponse
+import com.example.newsapp.api.ApiService
 import com.example.newsapp.app.news.data.response.NewsResponse
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 
@@ -11,6 +13,11 @@ import kotlin.coroutines.CoroutineContext
 class NewsApiCaller : ApiCaller() {
     private var _defaultLanguage = "pt-br"
     private var defaultText = ""
+    private val newsApiKey = envReader
+        .loadProperties()
+        .getProperty("news_api_token")
+
+
 
     val defaultLanguage: String
         get() = _defaultLanguage
@@ -50,7 +57,7 @@ class NewsApiCaller : ApiCaller() {
      * val apiCaller = NewsApiCaller()
      * apiCaller.setDefaultLanguage("en")
      * apiCaller.setDefaultText("politics")
-     * val newsResponse = apiCaller.getNews("us", apiKey = "your_api_key", context = Dispatchers.IO)
+     * val newsResponse = apiCaller.getNews(context = Dispatchers.IO)
      * ```
      *
      * @param country The country code to filter news articles. Example: "us" for the United States.
@@ -66,7 +73,7 @@ class NewsApiCaller : ApiCaller() {
         country: String? = null,
         language: String = defaultLanguage,
         text: String = defaultText,
-        apiKey: String = "",
+        apiKey: String = newsApiKey,
         context: CoroutineContext
     ): ApiResponse<NewsResponse> {
         return callApi(

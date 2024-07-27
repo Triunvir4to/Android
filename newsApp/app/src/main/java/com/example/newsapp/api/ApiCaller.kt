@@ -1,5 +1,6 @@
 package com.example.newsapp.api
 
+import com.example.newsapp.utils.EnvReader
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
@@ -13,7 +14,10 @@ import kotlin.coroutines.CoroutineContext
 abstract class ApiCaller {
 
     @Inject
-    lateinit var apiService: ApiService
+    protected lateinit var apiService: ApiService
+
+    @Inject
+    protected lateinit var envReader: EnvReader
 
     /**  Private property to hold the base URL which can be dynamically configured. */
     private var _baseUrl: String = ""
