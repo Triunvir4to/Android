@@ -4,10 +4,15 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import io.ktor.client.HttpClient
+import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.plugins.HttpRequestTimeoutException
 import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.header
@@ -21,6 +26,7 @@ import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,11 +38,12 @@ import okhttp3.OkHttpClient
  * The `ApiService` class is responsible for making HTTP requests to the API server with token-based authentication.
  * It provides functions for GET and POST requests and handles token refresh and retry logic for 401 Unauthorized responses.
  */
-object ApiService {
-    /**Mutex for controlling concurrent token refresh requests*/
+class ApiService(
+    baseOkHttpClient: OkHttpClient,
+    logger: Logger,
+    var exceptionRecorder: (Exception) -> Unit
+){
     private val refreshTokenMutex: Mutex = Mutex()
-
-    /**Authentication token used for API requests*/
     private var _authToken: String? = null
     private var authToken: String?
         get() = _authToken
@@ -44,23 +51,7 @@ object ApiService {
             _authToken = value
         }
 
-    /**Flag to prevent multiple token refresh attempts*/
-    private var isTokenRefreshing: Boolean = false
-
-    /** Base URL for API endpoints*/
     private var _baseUrl: String = ""
-
-    val InvalidToken = HttpStatusCode(498, "Token Expired/Invalid")
-
-    /**HTTP client for making API requests*/
-    lateinit var client: HttpClient
-        private set
-
-    fun init(context: Context) {
-        val okHttpClient = SSLUtil.createOkHttpClientWithCustomSSL(context)
-        client = createHttpClient(okHttpClient)
-    }
-
     var baseUrl: String
         get() = _baseUrl
         set(value) {
@@ -68,8 +59,16 @@ object ApiService {
             _baseUrl = value
         }
 
+    private var isTokenRefreshing: Boolean = false
+    val InvalidToken = HttpStatusCode(498, "Token Expired/Invalid")
+
+    val client: HttpClient = createHttpClient(baseOkHttpClient, logger)
+
     /**Initialize the HTTP client with necessary configurations*/
-    private fun createHttpClient(okHttpClient: OkHttpClient): HttpClient {
+    private fun createHttpClient(
+        okHttpClient: OkHttpClient,
+        logger: Logger
+    ): HttpClient {
         return HttpClient(OkHttp) {
             engine {
                 preconfigured = okHttpClient
@@ -77,6 +76,11 @@ object ApiService {
 
             install(ContentNegotiation) {
                 json()
+            }
+
+            install(Logging) {
+                this.logger = logger
+                level = LogLevel.HEADERS
             }
 
             install(HttpTimeout) {
@@ -125,7 +129,7 @@ object ApiService {
             is ClientRequestException -> {
                 if (e.response.status.value > InvalidToken.value) {
                     Log.e("ApiService", "Internal Server Error: ${e.response.bodyAsText()}", e)
-                    FirebaseCrashlytics.getInstance().recordException(e)
+                    exceptionRecorder(e)
                 }
                 Log.e("ApiService", "Error in response with body: ${e.response.bodyAsText()}", e)
 
@@ -133,13 +137,13 @@ object ApiService {
             }
 
             is HttpRequestTimeoutException -> {
-                FirebaseCrashlytics.getInstance().recordException(e)
+                exceptionRecorder(e)
                 Log.e("ApiService", "Timeout Exception: ${e.message}", e)
                 "Timeout Exception: ${e.message}"
             }
 
             else -> {
-                FirebaseCrashlytics.getInstance().recordException(e)
+                exceptionRecorder(e)
                 Log.e("ApiService", "Unexpected Exception: ${e.message}", e)
                 e.message
             }
@@ -151,9 +155,12 @@ object ApiService {
      * Tratamento padrão de erros
      */
     fun onFail(context: Context) {
-        Functions.cancelLoader()
         CoroutineScope(Dispatchers.Main).launch {
-            Toast.makeText(context, "Ocorreu um erro, tente novamente mais tarde.", Toast.LENGTH_SHORT)
+            Toast.makeText(
+                context,
+                "Ocorreu um erro, tente novamente mais tarde.",
+                Toast.LENGTH_SHORT
+            )
                 .show()
         }
     }
@@ -175,7 +182,12 @@ object ApiService {
         val response: HttpResponse = requestLogic()
 
         if (response.status.value > 202)
-            return ApiResponse.Fail(ApiResponse.Factory.error(response, "Error, refresh the token and retry the request, but get: ${response.bodyAsText()}"))
+            return ApiResponse.Fail(
+                ApiResponse.Factory.error(
+                    response,
+                    "Error, refresh the token and retry the request, but get: ${response.bodyAsText()}"
+                )
+            )
 
         return ApiResponse.Success(ApiResponse.Factory.response(response))
     }

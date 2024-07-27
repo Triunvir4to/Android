@@ -7,6 +7,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import io.ktor.client.plugins.logging.DEFAULT
+import io.ktor.client.plugins.logging.Logger
+import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
 @Module
@@ -17,5 +20,29 @@ class NetworkModule {
     @Provides
     fun provideApplication(@ApplicationContext context: Context) : NewsApp{
         return context as NewsApp
+    }
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(logger: Logger): OkHttpClient {
+        return OkHttpClient
+            .Builder()
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideLogger(): Logger {
+        return Logger.DEFAULT
+    }
+
+    @Singleton
+    @Provides
+    fun provideApiService(okHttpClient: OkHttpClient, logger: Logger): ApiService {
+        return ApiService(
+            baseOkHttpClient = okHttpClient,
+            exceptionRecorder = { _ -> },
+            logger = logger
+        )
     }
 }
