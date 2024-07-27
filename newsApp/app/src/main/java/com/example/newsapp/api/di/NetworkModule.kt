@@ -16,15 +16,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
-
-    @Singleton
-    @Provides
-    fun provideApplication(
-        @ApplicationContext context: Context
-    ): NewsApp {
-        return context as NewsApp
-    }
-
     @Singleton
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
