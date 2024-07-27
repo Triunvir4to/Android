@@ -219,7 +219,7 @@ class ApiService(
 
         val response: HttpResponse = requestLogic()
 
-        if (response.status.value > 202)
+        if (response.status.value >= HttpStatusCode.BadRequest.value)
             return ApiResponse.Fail(
                 ApiResponse.Factory.error(
                     response,
