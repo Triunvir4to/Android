@@ -3,9 +3,7 @@ package com.example.newsapp.app.news.domain
 import com.example.newsapp.api.ApiCaller
 import com.example.newsapp.api.ApiImplementation
 import com.example.newsapp.api.ApiResponse
-import com.example.newsapp.api.ApiService
 import com.example.newsapp.app.news.data.response.NewsResponse
-import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 

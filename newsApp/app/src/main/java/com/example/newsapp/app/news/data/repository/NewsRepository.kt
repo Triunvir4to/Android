@@ -4,20 +4,26 @@ import com.example.newsapp.api.ApiResponse
 import com.example.newsapp.app.news.data.response.NewsResponse
 import com.example.newsapp.app.news.domain.NewsApiCaller
 import com.example.newsapp.app.news.domain.repository.INewsRepository
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 class NewsRepository @Inject constructor(
     override val apiCaller: NewsApiCaller
-): INewsRepository {
+) : INewsRepository {
     override suspend fun getNews(
-        language: String,
+        language: String?,
         text: String?,
-        country: String?
+        country: String?,
+        context: CoroutineContext
     ): ApiResponse<NewsResponse> {
-        return apiCaller.getNews(
+        return if (language != null) apiCaller.getNews(
+            language = language,
             country = country,
-            context = Dispatchers.Default
+            context = context
+        )
+        else apiCaller.getNews(
+            country = country,
+            context = context
         )
     }
 
