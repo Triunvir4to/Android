@@ -73,6 +73,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.dagger.hilt.android)
+    implementation(libs.dagger.hilt.compose)
     ksp(libs.dagger.hilt.compiler)
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.json)
