@@ -1,19 +1,20 @@
 [versions]
 agp = "8.5.1"
 coilCompose = "2.2.2"
-kotlin = "2.0.0"
+kotlin = "2.0.20-Beta1"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 kotlinxSerializationJson = "1.7.1"
 kotlinxSerializationJsonPlugin = "2.0.0"
-lifecycleRuntimeKtx = "2.8.3"
-activityCompose = "1.9.0"
+lifecycleRuntimeKtx = "2.8.4"
+activityCompose = "1.9.1"
 composeBom = "2024.06.00"
-navigationCompose = "2.8.0-beta05"
-dagger-hilt = "2.44"
+navigationCompose = "2.8.0-beta06"
+dagger-hilt = "2.51.1"
 ktor = "2.1.1"
+ksp = "2.0.20-Beta1-1.0.22"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -49,3 +50,4 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlinx-serialization-json = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinxSerializationJsonPlugin" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger-hilt" }
+ksp = {id = "com.google.devtools.ksp", version.ref = "ksp"}

@@ -1,11 +1,12 @@
 plugins {
-    id("kotlin-kapt")
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlinx.serialization.json)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt)
 }
+
 
 android {
     namespace = "com.example.newsapp"
@@ -40,6 +41,13 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    kotlin {
+        sourceSets {
+            val main by getting {
+                kotlin.srcDir("build/generated/ksp/main/kotlin")
+            }
+        }
+    }
     buildFeatures {
         compose = true
     }
@@ -65,7 +73,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.dagger.hilt.android)
-    kapt(libs.dagger.hilt.compiler)
+    ksp(libs.dagger.hilt.compiler)
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.json)
     implementation(libs.ktor.client.serialization)
@@ -82,8 +90,3 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.kotlinx.serialization.json)
 }
-
-kapt {
-    correctErrorTypes = true
-}
-
