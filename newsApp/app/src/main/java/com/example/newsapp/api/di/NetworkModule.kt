@@ -1,12 +1,9 @@
 package com.example.newsapp.api.di
 
-import android.content.Context
-import com.example.newsapp.NewsApp
 import com.example.newsapp.api.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.Logger
