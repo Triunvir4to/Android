@@ -1,16 +1,19 @@
-package com.example.newsapp.news.domain
+package com.example.newsapp.app.news.domain
 
 import com.example.newsapp.api.ApiCaller
 import com.example.newsapp.api.ApiImplementation
 import com.example.newsapp.api.ApiResponse
-import com.example.newsapp.news.data.response.NewsResponse
+import com.example.newsapp.app.news.data.response.NewsResponse
 import kotlin.coroutines.CoroutineContext
 
 
 @ApiImplementation(newBaseUrl = "https://api.worldnewsapi.com/")
 class NewsApiCaller : ApiCaller() {
-    private var defaultLanguage = "pt-br"
+    private var _defaultLanguage = "pt-br"
     private var defaultText = ""
+
+    val defaultLanguage: String
+        get() = _defaultLanguage
 
     /**
      * Sets the default language for news queries.
@@ -18,7 +21,7 @@ class NewsApiCaller : ApiCaller() {
      * @param language The default language to be set.
      */
     fun setDefaultLanguage(language: String) {
-        defaultLanguage = language
+        _defaultLanguage = language
     }
 
     /**
@@ -60,7 +63,7 @@ class NewsApiCaller : ApiCaller() {
      *         [NewsResponse] instance or an error state.
      */
     suspend fun getNews(
-        country: String,
+        country: String? = null,
         language: String = defaultLanguage,
         text: String = defaultText,
         apiKey: String = "",
@@ -72,7 +75,7 @@ class NewsApiCaller : ApiCaller() {
             apiService.get<NewsResponse>(
                 endpoint = "search-news",
                 queryParams = mapOf(
-                    "country" to country,
+                    "country" to (country ?: ""),
                     "api-key" to apiKey,
                     "language" to language,
                     "text" to text

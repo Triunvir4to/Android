@@ -1,4 +1,4 @@
-package com.example.newsapp
+package com.example.newsapp.app
 
 import android.os.Bundle
 import android.util.Log
@@ -13,8 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.newsapp.api.ApiService
-import com.example.newsapp.news.domain.NewsApiCaller
-import com.example.newsapp.ui.theme.NewsAppTheme
+import com.example.newsapp.app.news.domain.NewsApiCaller
+import com.example.newsapp.app.theme.NewsAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
