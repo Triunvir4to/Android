@@ -11,10 +11,13 @@ import javax.inject.Inject
 abstract class ApiCaller  {
 
     @Inject
-    private lateinit var apiService: ApiService
+    lateinit var apiService: ApiService
 
     /**  Private property to hold the base URL which can be dynamically configured. */
-    private var _baseUrl = ""
+    private var _baseUrl: String = ""
+
+    val baseUrl: String
+        get() = _baseUrl
 
     /**
      * Initializes the ApiCaller. It sets up the initial configuration for the base URL.

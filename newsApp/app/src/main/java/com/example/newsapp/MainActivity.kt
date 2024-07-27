@@ -37,8 +37,8 @@ class MainActivity : ComponentActivity() {
             }
         }
         Log.d(apiService.baseUrl, apiService.baseUrl)
-        val newsApiCaller: NewsApiCaller = NewsApiCaller(apiService)
-        Log.d(apiService.baseUrl, apiService.baseUrl)
+        val newsApiCaller = NewsApiCaller()
+        Log.d(newsApiCaller.baseUrl, newsApiCaller.baseUrl)
     }
 }
 
