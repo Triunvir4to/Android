@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">JetPackCompose</string>
-    <string name="login_button" translatable="true">
-        Creating account…
-    </string>
-</resources>
