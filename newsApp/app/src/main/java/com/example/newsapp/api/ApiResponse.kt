@@ -45,7 +45,7 @@ sealed class ApiResponse<out T> {
          * @param message An optional message providing additional details about the error.
          * @return An [Error] object containing the HTTP status, error message, and headers.
          */
-        fun error(response: HttpResponse?, message: String?): Error {
+        fun error(response: HttpResponse?, message: String): Error {
             return Error(response?.status, message, response?.headers)
         }
     }
@@ -67,7 +67,7 @@ sealed class ApiResponse<out T> {
      * @property message An optional message providing details about the error.
      * @property headers The HTTP headers associated with the error response.
      */
-    data class Error(val status: HttpStatusCode?, val message: String?, val headers: Headers?)
+    data class Error(val status: HttpStatusCode?, val message: String, val headers: Headers?)
 
 
     /**

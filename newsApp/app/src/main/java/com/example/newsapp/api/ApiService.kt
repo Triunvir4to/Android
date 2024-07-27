@@ -186,7 +186,7 @@ class ApiService(
                 e.message
             }
         }
-        return ApiResponse.Fail(ApiResponse.Factory.error(response, errorMessage))
+        return ApiResponse.Fail(ApiResponse.Factory.error(response, errorMessage ?: ""))
     }
 
     /**
