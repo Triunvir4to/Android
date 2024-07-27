@@ -35,23 +35,47 @@ import kotlinx.coroutines.sync.withLock
 import okhttp3.OkHttpClient
 
 /**
- * The `ApiService` class is responsible for making HTTP requests to the API server with token-based authentication.
- * It provides functions for GET and POST requests and handles token refresh and retry logic for 401 Unauthorized responses.
+ * Represents a service responsible for making HTTP requests to an API server.
+ * This service handles authentication via tokens and manages token refresh automatically
+ * if a 401 Unauthorized response is encountered. It supports operations such as GET and POST,
+ * and can extend to support other HTTP methods as needed.
+ *
+ * @param baseOkHttpClient The base OkHttpClient used to make HTTP requests.
+ *                          This client should not contain any authentication-specific interceptors
+ *                          as this class manages headers dynamically.
+ * @param logger Logger instance used to log messages and errors associated with network requests.
+ * @param exceptionRecorder A lambda function that is called to record exceptions.
+ *                          This could be connected to a logging service or a crash monitoring tool.
  */
 class ApiService(
     baseOkHttpClient: OkHttpClient,
     logger: Logger,
     var exceptionRecorder: (Exception) -> Unit
-){
+) {
+    /** Mutex to control concurrency during token refresh operations. */
     private val refreshTokenMutex: Mutex = Mutex()
+
+    /** Backing field to hold the authentication token. */
     private var _authToken: String? = null
-    private var authToken: String?
+
+    /**
+     * Public property to get or set the authentication token.
+     * Setting this property does not affect ongoing requests but will affect subsequent requests.
+     */
+    var authToken: String?
         get() = _authToken
         set(value) {
             _authToken = value
         }
 
+    /** Backing field for the base URL of the API. */
     private var _baseUrl: String = ""
+
+    /**
+     * Base URL for API requests.
+     * Must start with "https://" to ensure secure requests.
+     * Throws IllegalArgumentException if a non-HTTPS URL is set.
+     */
     var baseUrl: String
         get() = _baseUrl
         set(value) {
@@ -59,12 +83,26 @@ class ApiService(
             _baseUrl = value
         }
 
+    /** Flag to prevent multiple concurrent token refresh attempts. */
     private var isTokenRefreshing: Boolean = false
+
+    /** Custom HTTP status code representing an invalid or expired token. */
     val InvalidToken = HttpStatusCode(498, "Token Expired/Invalid")
 
+    /**
+     * HttpClient configured with the base OkHttpClient and additional features
+     * like logging and content negotiation.
+     */
     val client: HttpClient = createHttpClient(baseOkHttpClient, logger)
 
-    /**Initialize the HTTP client with necessary configurations*/
+    /**
+     * Creates an instance of HttpClient configured for API communication.
+     * This includes setting up loggers, content negotiation, and default request headers.
+     *
+     * @param okHttpClient Base OkHttpClient for underlying HTTP requests.
+     * @param logger Logger for logging HTTP request and response details.
+     * @return Configured HttpClient instance.
+     */
     private fun createHttpClient(
         okHttpClient: OkHttpClient,
         logger: Logger
