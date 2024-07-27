@@ -1,6 +1,8 @@
 package com.example.newsapp.api
 
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Abstract class for making API calls. It manages the base URL for the API calls and provides
@@ -8,7 +10,7 @@ import javax.inject.Inject
  *
  * @property apiService An instance of ApiService that is used to make actual API calls.
  */
-abstract class ApiCaller  {
+abstract class ApiCaller {
 
     @Inject
     lateinit var apiService: ApiService
@@ -22,7 +24,7 @@ abstract class ApiCaller  {
     /**
      * Initializes the ApiCaller. It sets up the initial configuration for the base URL.
      */
-    init{
+    init {
         configureBaseUrl()
     }
 
@@ -47,12 +49,18 @@ abstract class ApiCaller  {
      * is correctly set before making the call.
      *
      * @param T the type of the return value of the API call.
+     * @param context The coroutine context for make async request
      * @param call The lambda expression representing the API call to execute.
      * @return Returns the result of the API call as specified by the type [T].
      */
-    protected fun <T> callApi(call: ApiService.() -> T): T {
+    protected suspend fun <T> callApi(
+        context: CoroutineContext,
+        call: suspend ApiService.() -> T
+    ): T {
         ensureCorrectBaseUrl()
-        return apiService.call()
+        return withContext(context) {
+            apiService.call()
+        }
     }
 
     /**
