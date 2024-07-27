@@ -17,8 +17,6 @@ class NewsApiCaller : ApiCaller() {
         .loadProperties()
         .getProperty("news_api_token")
 
-
-
     val defaultLanguage: String
         get() = _defaultLanguage
 
