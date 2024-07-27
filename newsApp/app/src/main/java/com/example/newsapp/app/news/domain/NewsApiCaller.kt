@@ -11,7 +11,7 @@ import kotlin.coroutines.CoroutineContext
 
 @ApiImplementation(newBaseUrl = "https://api.worldnewsapi.com/")
 class NewsApiCaller : ApiCaller() {
-    private var _defaultLanguage = "pt-br"
+    private var _defaultLanguage = "pt"
     private var defaultText = ""
     private val newsApiKey = envReader
         .loadProperties()
