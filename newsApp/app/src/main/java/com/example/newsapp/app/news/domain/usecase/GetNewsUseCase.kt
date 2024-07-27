@@ -14,28 +14,14 @@ class GetNewsUseCase @Inject constructor(
         language: String? = null,
         text: String? = null,
         country: String? = null,
-        context: CoroutineContext
-    ): MutableList<News> {
-        val request = newsInvocation(
+        context: CoroutineContext,
+    ): ApiResponse<NewsResponse> {
+        return newsInvocation(
             language = language,
             text = text,
             country = country,
             context = context
         )
-
-        val news: MutableList<News> = mutableListOf()
-
-        when (request) {
-            is ApiResponse.Success -> {
-                news.addAll(request.response.body.news)
-            }
-
-            else -> {
-
-            }
-        }
-
-        return news
     }
 
     private suspend fun newsInvocation(
@@ -59,6 +45,4 @@ class GetNewsUseCase @Inject constructor(
             )
         }
     }
-
-
 }
