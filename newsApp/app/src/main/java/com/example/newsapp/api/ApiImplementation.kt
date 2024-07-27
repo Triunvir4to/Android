@@ -5,5 +5,3 @@ package com.example.newsapp.api
 annotation class ApiImplementation(
     val newBaseUrl: String = ""
 )
-
-annotation class AutoInjectApiCaller

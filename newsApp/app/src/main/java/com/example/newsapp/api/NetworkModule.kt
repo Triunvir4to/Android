@@ -8,6 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.github.classgraph.ClassGraph
+import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.Logger
 import okhttp3.OkHttpClient
 import javax.inject.Singleton
@@ -38,44 +39,12 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideApiService(
-        okHttpClient: OkHttpClient,
-        logger: Logger
+        okHttpClient: OkHttpClient
     ): ApiService {
         return ApiService(
             baseOkHttpClient = okHttpClient,
             exceptionRecorder = { _ -> },
-            logger = logger
+            logger = Logger.DEFAULT
         )
     }
-
-
-    @Provides
-    fun provideApiCallerMap()
-        : MutableMap<KClass<out ApiCaller>, ApiCaller> {
-        val scanResult = ClassGraph()
-            .enableClassInfo()
-            .enableAnnotationInfo()
-            .scan()
-
-        val apiCallers = mutableMapOf<KClass<out ApiCaller>, ApiCaller>()
-
-        scanResult.getClassesWithAnnotation(AutoInjectApiCaller::class.qualifiedName)
-            .forEach { classInfo ->
-                val klass = Class.forName(classInfo.name).kotlin
-                if (ApiCaller::class.isSuperclassOf(klass)) {
-                    apiCallers[klass as KClass<out ApiCaller>] = klass.createInstance()
-                }
-            }
-        scanResult.close()
-        return apiCallers
-    }
-
-    @Provides
-    inline fun <reified T : ApiCaller> provideApiCaller(
-        callers: Map<Class<out ApiCaller>, ApiCaller>
-    ): T {
-        return callers[T::class.java] as T
-    }
-
-
 }
