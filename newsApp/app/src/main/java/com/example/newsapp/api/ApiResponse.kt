@@ -1,7 +1,5 @@
 package com.example.newsapp.api
 
-import io.ktor.client.call.body
-import io.ktor.client.statement.HttpResponse
 import io.ktor.http.Headers
 import io.ktor.http.HttpStatusCode
 
@@ -13,42 +11,6 @@ import io.ktor.http.HttpStatusCode
  * @param T The type of data expected in a successful API response.
  */
 sealed class ApiResponse<out T> {
-
-    /**
-     * Factory for constructing ApiResponse instances from [HttpResponse]. Utilizes inline and
-     * reified type parameters to dynamically access and manipulate the generic type [T] at runtime,
-     * thus allowing for direct conversion of [HttpResponse] to a domain-specific [Response] or [Error].
-     *
-     * This design enables efficient and type-safe transformation of raw HTTP responses into structured,
-     * application-specific objects, streamlining the handling of network communication results.
-     */
-    object Factory {
-
-        /**
-         * Transforms an [HttpResponse] into a [Response] object, encapsulating the HTTP status,
-         * deserialized body of type [T], and headers. The function is suspendable to accommodate
-         * potentially blocking IO operations like body deserialization without freezing the main thread.
-         *
-         * @param response The [HttpResponse] to be transformed.
-         * @return A [Response] instance containing the HTTP status, deserialized body, and headers.
-         */
-        suspend inline fun <reified T> response(response: HttpResponse): Response<T> {
-            return Response(response.status, response.body(), response.headers)
-        }
-
-        /**
-         * Creates an [Error] instance from an [HttpResponse] and an optional error message.
-         * This method allows for the encapsulation of error details received from the network
-         * into a structured format, facilitating error handling in the application.
-         *
-         * @param response The [HttpResponse] associated with the error.
-         * @param message An optional message providing additional details about the error.
-         * @return An [Error] object containing the HTTP status, error message, and headers.
-         */
-        fun error(response: HttpResponse?, message: String?): Error {
-            return Error(response?.status, message, response?.headers)
-        }
-    }
 
     /**
      * Represents the successful outcome of an API call, containing the status code, response body, and headers.
@@ -69,6 +31,28 @@ sealed class ApiResponse<out T> {
      */
     data class Error(val status: HttpStatusCode?, val message: String?, val headers: Headers?)
 
+
+    /**
+     * Represents a loading state in the application's response handling mechanism.
+     * This object is used to indicate that a request is currently in process and
+     * the final data or result is not yet available.
+     *
+     * Inherits from [ApiResponse] with a type parameter [Nothing] to signify
+     * that no data is expected to be held by this object when in the loading state.
+     *
+     * Usage:
+     * This object can be used in UI components to trigger loading indicators like
+     * spinners or progress bars while data is being fetched or processed.
+     *
+     * Example:
+     * ```
+     * fun fetchData() {
+     *     viewModel.stateLiveData.postValue(Loading())
+     * }
+     * ```
+     */
+    data object Loading : ApiResponse<Nothing>()
+
     /**
      * Encapsulates a successful API response, holding the response data.
      *
@@ -84,4 +68,5 @@ sealed class ApiResponse<out T> {
      * @property error The error details encapsulated in an [Error] object.
      */
     data class Fail<T>(val error: Error) : ApiResponse<T>()
+
 }
