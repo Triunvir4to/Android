@@ -3,17 +3,22 @@ package com.example.newsapp.app.news.domain
 import com.example.newsapp.api.ApiCaller
 import com.example.newsapp.api.ApiImplementation
 import com.example.newsapp.api.ApiResponse
+import com.example.newsapp.api.ApiService
 import com.example.newsapp.app.news.data.response.NewsResponse
+import com.example.newsapp.utils.EnvReader
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 
 @ApiImplementation(newBaseUrl = "https://api.worldnewsapi.com/")
-class NewsApiCaller : ApiCaller() {
+class NewsApiCaller @Inject constructor(
+    envReader: EnvReader,
+    apiService: ApiService
+): ApiCaller(apiService) {
     private var _defaultLanguage = "pt"
     private var defaultText = ""
-    private val newsApiKey = envReader
-        .loadProperties()
-        .getProperty("news_api_token")
+
+    private var newsApiKey: String = envReader.loadProperties().getProperty("news_api_token")
 
     val defaultLanguage: String
         get() = _defaultLanguage

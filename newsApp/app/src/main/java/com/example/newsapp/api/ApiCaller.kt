@@ -1,8 +1,6 @@
 package com.example.newsapp.api
 
-import com.example.newsapp.utils.EnvReader
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -11,13 +9,9 @@ import kotlin.coroutines.CoroutineContext
  *
  * @property apiService An instance of ApiService that is used to make actual API calls.
  */
-abstract class ApiCaller {
-
-    @Inject
-    lateinit var apiService: ApiService
-
-    @Inject
-    lateinit var envReader: EnvReader
+abstract class ApiCaller(
+    val apiService: ApiService
+) {
 
     /**  Private property to hold the base URL which can be dynamically configured. */
     private var _baseUrl: String = ""
