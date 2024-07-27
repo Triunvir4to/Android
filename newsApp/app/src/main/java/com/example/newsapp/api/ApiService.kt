@@ -62,7 +62,7 @@ class ApiService(
      * Public property to get or set the authentication token.
      * Setting this property does not affect ongoing requests but will affect subsequent requests.
      */
-    var authToken: String?
+    private var authToken: String?
         get() = _authToken
         set(value) {
             _authToken = value
