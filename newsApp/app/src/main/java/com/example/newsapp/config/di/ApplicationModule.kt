@@ -22,6 +22,7 @@ class ApplicationModule {
         return context as NewsApp
     }
 
+    @Singleton
     @Provides
     fun provideEnvReader(
         @ApplicationContext context: Context

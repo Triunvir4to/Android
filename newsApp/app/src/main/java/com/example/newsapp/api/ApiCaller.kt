@@ -14,10 +14,10 @@ import kotlin.coroutines.CoroutineContext
 abstract class ApiCaller {
 
     @Inject
-    protected lateinit var apiService: ApiService
+    lateinit var apiService: ApiService
 
     @Inject
-    protected lateinit var envReader: EnvReader
+    lateinit var envReader: EnvReader
 
     /**  Private property to hold the base URL which can be dynamically configured. */
     private var _baseUrl: String = ""
