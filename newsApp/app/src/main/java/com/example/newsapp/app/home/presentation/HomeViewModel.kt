@@ -42,7 +42,7 @@ class HomeViewModel @Inject constructor(
 
         _state.tryEmit(request)
 
-        return when(request) {
+        return when (request) {
             is ApiResponse.Success -> {
                 request.response.body.news
             }
