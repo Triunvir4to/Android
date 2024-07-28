@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -102,7 +103,7 @@ private fun SearchBar(
             value = text,
             onValueChange = onSearch,
             label = { Text(text = "Pesquisa") },
-            shape = Shapes.extraLarge,
+            shape = RoundedCornerShape(24.dp),
         )
 
         Image(

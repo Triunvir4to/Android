@@ -35,7 +35,7 @@ import com.example.newsapp.app.ui.theme.Shapes
 fun NewsItemComponent(news: News) {
     Box(
         modifier = Modifier
-            .padding(top = 8.dp, bottom = 8.dp)
+            .padding(top = 4.dp, bottom = 8.dp)
             .fillMaxWidth()
             .height(130.dp)
             .clip(Shapes.extraLarge)
@@ -68,7 +68,6 @@ fun NewsItemComponent(news: News) {
             color = Color.White,
             modifier = Modifier.align(Alignment.BottomStart)
         )
-
     }
 }
 
