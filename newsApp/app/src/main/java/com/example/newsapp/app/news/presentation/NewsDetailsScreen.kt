@@ -2,6 +2,7 @@ package com.example.newsapp.app.news.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,7 +11,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.MaterialTheme
@@ -40,7 +43,6 @@ fun NewsDetails(
     navController: NavController,
     news: News
 ) {
-
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -57,6 +59,7 @@ fun NewsDetails(
         ConstraintLayout(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
         ) {
             val (backBtn, topSpace, summary, newContent) = createRefs()
             Spacer(
@@ -76,6 +79,9 @@ fun NewsDetails(
                     .constrainAs(backBtn) {
                         top.linkTo(parent.top, margin = 16.dp)
                         start.linkTo(parent.start, margin = 16.dp)
+                    }
+                    .clickable {
+                        navController.popBackStack()
                     }
             )
 

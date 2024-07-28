@@ -7,8 +7,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.example.newsapp.app.home.presentation.Home
 import com.example.newsapp.app.home.presentation.HomeScreen
+import com.example.newsapp.app.news.data.model.News
 import com.example.newsapp.app.news.presentation.NewsDetails
 import com.example.newsapp.app.news.presentation.NewsDetailsScreen
+import kotlin.reflect.typeOf
 
 @Composable
 fun MainNavGraph(
@@ -16,7 +18,7 @@ fun MainNavGraph(
 ) {
     NavHost(
         navController = navHostController,
-        startDestination = HomeScreen,
+        startDestination = HomeScreen
     ) {
         composable<HomeScreen> {
             Home(
@@ -24,8 +26,11 @@ fun MainNavGraph(
             )
         }
 
-        composable<NewsDetailsScreen> {
+        composable<NewsDetailsScreen>(
+            typeMap = mapOf(typeOf<News>() to parcelableType<News>())
+        ) {
             val newsDetailsScreen: NewsDetailsScreen = it.toRoute<NewsDetailsScreen>()
+
             NewsDetails(
                 navController = navHostController,
                 news = newsDetailsScreen.news

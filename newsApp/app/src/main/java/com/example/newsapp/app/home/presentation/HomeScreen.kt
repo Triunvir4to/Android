@@ -155,6 +155,24 @@ private fun SearchBar(
 fun Home(
     navController: NavController
 ) {
+    navController.navigate(NewsDetailsScreen(
+        news = News(
+            author = "John Doe",
+            catgory = "Technology",
+            authors = listOf("John Doe", "Jane Smith"),
+            id = 1,
+            image = "https://example.com/image.jpg",
+            video = "https://example.com/video.mp4",
+            language = "en",
+            publishDate = "2024-07-28",
+            sentiment = 0.5,
+            sourceCountry = "USA",
+            summary = "This is a summary of the latest technology news.",
+            text = "Detailed article text goes here. This part will contain the full article content, discussing the latest advancements in technology and their implications.",
+            title = "Breaking Tech News!",
+            url = "https://example.com/full-article"
+        )
+    ))
     val homeViewModel: HomeViewModel = hiltViewModel()
     val uiState = homeViewModel.state.collectAsState()
     val searchText = remember { mutableStateOf("") }
