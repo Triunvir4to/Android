@@ -92,4 +92,5 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(kotlin("reflect"))
     implementation(libs.classgraph)
+    implementation(libs.androidx.constraintlayout.compose)
 }

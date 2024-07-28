@@ -36,6 +36,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.newsapp.app.news.data.model.News
+import com.example.newsapp.app.news.presentation.NewsDetailsScreen
 import com.example.newsapp.app.news.presentation.components.NewsItemComponent
 import com.example.newsapp.app.news.presentation.components.NewsSkeletonLoader
 import com.example.newsapp.services.api.utils.ApiResponse
@@ -92,10 +93,19 @@ private fun Loading() {
 }
 
 @Composable
-private fun Success(news: List<News>) {
+private fun Success(
+    navController: NavController,
+    news: List<News>
+) {
     MainContentBackground {
         items(news) { article ->
-            NewsItemComponent(article)
+            NewsItemComponent(
+                news = article,
+                onClick = {
+                    navController
+                        .navigate(NewsDetailsScreen(article))
+                }
+            )
         }
     }
 }
@@ -179,7 +189,10 @@ fun Home(
 
             is ApiResponse.Success -> {
                 val news = response.response.body.news
-                Success(news = news)
+                Success(
+                    news = news,
+                    navController = navController
+                )
             }
         }
     }

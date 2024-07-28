@@ -1,6 +1,7 @@
 package com.example.newsapp.app.news.presentation.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,6 +26,7 @@ import com.example.newsapp.app.ui.theme.Shapes
  * This component shows a news article's image, title, publication date, and author information in a styled card.
  *
  * @param news An instance of [News] which contains data like title, author(s), publish date, and image URL.
+ * @param onClick What happens when the user click's it
  *
  * The function constructs a box that serves as a card container with a light red background. It uses:
  * - `AsyncImage` to load and display the news image asynchronously, cropping it to fill the container.
@@ -32,7 +34,10 @@ import com.example.newsapp.app.ui.theme.Shapes
  *   and the author's name or names at the bottom start. If `news.author` is null, it concatenates and displays `news.authors`.
  */
 @Composable
-fun NewsItemComponent(news: News) {
+fun NewsItemComponent(
+    news: News,
+    onClick: () -> Unit
+) {
     Box(
         modifier = Modifier
             .padding(top = 4.dp, bottom = 8.dp)
@@ -40,6 +45,7 @@ fun NewsItemComponent(news: News) {
             .height(130.dp)
             .clip(Shapes.extraLarge)
             .background(Color.Red.copy(alpha = 0.2f))
+            .clickable { onClick() }
     ) {
 
         val authorCamp = news.author ?: news.authors?.joinToString(", ") ?: ""
