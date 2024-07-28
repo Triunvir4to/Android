@@ -33,6 +33,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.newsapp.app.news.data.model.News
 import com.example.newsapp.app.news.presentation.components.NewsItemComponent
 import com.example.newsapp.app.news.presentation.components.NewsSkeletonLoader
@@ -140,7 +142,9 @@ private fun SearchBar(
 }
 
 @Composable
-fun Home() {
+fun Home(
+    navController: NavController
+) {
     val homeViewModel: HomeViewModel = hiltViewModel()
     val uiState = homeViewModel.state.collectAsState()
     val searchText = remember { mutableStateOf("") }
@@ -184,5 +188,7 @@ fun Home() {
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    Home()
+    Home(
+        rememberNavController()
+    )
 }

@@ -4,8 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.example.newsapp.app.home.presentation.Home
 import com.example.newsapp.app.home.presentation.HomeScreen
+import com.example.newsapp.app.news.presentation.NewsDetails
+import com.example.newsapp.app.news.presentation.NewsDetailsScreen
 
 @Composable
 fun MainNavGraph(
@@ -16,7 +19,17 @@ fun MainNavGraph(
         startDestination = HomeScreen,
     ) {
         composable<HomeScreen> {
-            Home()
+            Home(
+                navController = navHostController
+            )
+        }
+
+        composable<NewsDetailsScreen> {
+            val newsDetailsScreen: NewsDetailsScreen = it.toRoute<NewsDetailsScreen>()
+            NewsDetails(
+                navController = navHostController,
+                news = newsDetailsScreen.news
+            )
         }
     }
 }
