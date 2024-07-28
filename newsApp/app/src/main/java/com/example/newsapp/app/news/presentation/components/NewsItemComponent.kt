@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.newsapp.app.news.data.model.News
-import com.example.newsapp.app.theme.Shapes
+import com.example.newsapp.app.ui.theme.Shapes
 
 @Composable
 fun NewsItemComponent(news: News) {
@@ -30,7 +30,7 @@ fun NewsItemComponent(news: News) {
             .background(Color.Red.copy(alpha = 0.2f))
     ) {
 
-        val authorCamp = news.author ?: news.authors?.joinToString(", ")!!
+        val authorCamp = news.author ?: news.authors?.joinToString(", ") ?: ""
         AsyncImage(
             model = news.image,
             contentDescription = "Article ${news.title}: Image",

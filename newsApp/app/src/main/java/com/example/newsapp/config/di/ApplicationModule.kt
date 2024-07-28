@@ -2,7 +2,7 @@ package com.example.newsapp.config.di
 
 import android.content.Context
 import com.example.newsapp.NewsApp
-import com.example.newsapp.utils.EnvReader
+import com.example.newsapp.services.env.EnvReader
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

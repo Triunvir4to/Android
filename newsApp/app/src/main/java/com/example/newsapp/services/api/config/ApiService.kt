@@ -1,8 +1,9 @@
-package com.example.newsapp.api
+package com.example.newsapp.services.api.config
 
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import com.example.newsapp.services.api.utils.ApiResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.ClientRequestException

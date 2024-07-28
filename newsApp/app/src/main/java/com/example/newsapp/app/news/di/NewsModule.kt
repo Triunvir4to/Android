@@ -1,9 +1,9 @@
 package com.example.newsapp.app.news.di
 
-import com.example.newsapp.api.ApiService
+import com.example.newsapp.services.api.config.ApiService
 import com.example.newsapp.app.news.data.repository.NewsRepository
 import com.example.newsapp.app.news.domain.NewsApiCaller
-import com.example.newsapp.utils.EnvReader
+import com.example.newsapp.services.env.EnvReader
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

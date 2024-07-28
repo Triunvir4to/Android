@@ -1,6 +1,6 @@
 package com.example.newsapp.app.news.data.repository
 
-import com.example.newsapp.api.ApiResponse
+import com.example.newsapp.services.api.utils.ApiResponse
 import com.example.newsapp.app.news.data.response.NewsResponse
 import com.example.newsapp.app.news.domain.NewsApiCaller
 import com.example.newsapp.app.news.domain.repository.INewsRepository

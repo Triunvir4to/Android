@@ -1,5 +1,7 @@
-package com.example.newsapp.api
+package com.example.newsapp.services.api
 
+import com.example.newsapp.services.api.config.ApiImplementation
+import com.example.newsapp.services.api.config.ApiService
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 

@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.newsapp.api.ApiResponse
+import com.example.newsapp.services.api.utils.ApiResponse
 import com.example.newsapp.app.news.data.model.News
 import com.example.newsapp.app.news.presentation.components.NewsItemComponent
 

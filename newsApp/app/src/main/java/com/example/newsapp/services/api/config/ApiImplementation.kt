@@ -1,4 +1,4 @@
-package com.example.newsapp.api
+package com.example.newsapp.services.api.config
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)

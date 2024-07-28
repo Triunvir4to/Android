@@ -1,4 +1,4 @@
-package com.example.newsapp.api
+package com.example.newsapp.services.api.utils
 
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse

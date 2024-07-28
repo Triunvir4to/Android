@@ -1,4 +1,4 @@
-package com.example.newsapp.utils
+package com.example.newsapp.services.env
 
 import android.content.Context
 import android.util.Log
