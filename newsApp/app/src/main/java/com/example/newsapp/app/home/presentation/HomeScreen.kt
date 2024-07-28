@@ -37,7 +37,9 @@ import com.example.newsapp.app.news.data.model.News
 import com.example.newsapp.app.news.presentation.components.NewsItemComponent
 import com.example.newsapp.app.news.presentation.components.NewsSkeletonLoader
 import com.example.newsapp.services.api.utils.ApiResponse
+import kotlinx.serialization.Serializable
 
+@Serializable
 object HomeScreen
 
 @Composable
