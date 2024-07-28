@@ -38,6 +38,8 @@ import com.example.newsapp.app.news.presentation.components.NewsItemComponent
 import com.example.newsapp.app.news.presentation.components.NewsSkeletonLoader
 import com.example.newsapp.services.api.utils.ApiResponse
 
+object HomeScreen
+
 @Composable
 private fun Fail(
     error: ApiResponse.Error,
@@ -136,7 +138,7 @@ private fun SearchBar(
 }
 
 @Composable
-fun HomeScreen() {
+fun Home() {
     val homeViewModel: HomeViewModel = hiltViewModel()
     val uiState = homeViewModel.state.collectAsState()
     val searchText = remember { mutableStateOf("") }
@@ -180,5 +182,5 @@ fun HomeScreen() {
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen()
+    Home()
 }
