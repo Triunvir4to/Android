@@ -19,6 +19,23 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+
+/**
+ * Creates a skeleton screen loader which is typically used as a placeholder while content is loading.
+ * This composable displays an animated shimmer effect over the specified shape.
+ *
+ * @param modifier A [Modifier] applied to the box that contains the shimmer effect.
+ *                 Use this to specify the size, padding, and other layout options.
+ * @param shape Defines the shape of the shimmer effect area. Common shapes include [RectangleShape], [RoundedCornerShape], etc.
+ * @param colorShimmer The base color of the shimmer effect, typically a shade of gray to represent the unloaded content area.
+ * @param highlightColor The color of the shimmer highlight. This color briefly overlays the `colorShimmer` to create a shining effect.
+ * @param animationDuration Duration in milliseconds for one cycle of the shimmer animation.
+ * @param delay Delay in milliseconds before the animation starts, allowing for staggered animations across multiple loaders.
+ *
+ * The function uses an infinite transition to animate the linear gradient used for the shimmer. This creates an effect
+ * of the shimmer moving across the defined shape. The animation is controlled by `translateAnim`, which shifts the gradient
+ * horizontally from 0 to 1000 pixels across the shape's width during each cycle of the animation.
+ */
 @Composable
 fun SkeletonLoader(
     modifier: Modifier = Modifier,

@@ -20,6 +20,17 @@ import com.example.newsapp.app.components.SkeletonLoader
 import com.example.newsapp.app.news.data.model.News
 import com.example.newsapp.app.ui.theme.Shapes
 
+/**
+ * Displays a single news item as a component in a list or grid.
+ * This component shows a news article's image, title, publication date, and author information in a styled card.
+ *
+ * @param news An instance of [News] which contains data like title, author(s), publish date, and image URL.
+ *
+ * The function constructs a box that serves as a card container with a light red background. It uses:
+ * - `AsyncImage` to load and display the news image asynchronously, cropping it to fill the container.
+ * - Three `Text` composites to display the title at the top center, the publication date at the bottom end,
+ *   and the author's name or names at the bottom start. If `news.author` is null, it concatenates and displays `news.authors`.
+ */
 @Composable
 fun NewsItemComponent(news: News) {
     Box(
@@ -61,6 +72,14 @@ fun NewsItemComponent(news: News) {
     }
 }
 
+/**
+ * Displays a skeleton loader for a news item component.
+ * This loader is used as a placeholder while the actual news content is being loaded, mimicking the layout of `NewsItemComponent`.
+ *
+ * This function configures the `SkeletonLoader` to match the appearance and dimensions of a news item card,
+ * utilizing a custom shape and size. It leverages the same modifier settings as `NewsItemComponent` to ensure consistency
+ * in appearance between the loading and loaded states.
+ */
 @Composable
 fun NewsSkeletonLoader() {
     SkeletonLoader(
