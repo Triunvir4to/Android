@@ -1,6 +1,5 @@
 package com.example.newsapp.app.home.presentation
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,7 +12,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,15 +25,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.newsapp.app.news.data.model.News
 import com.example.newsapp.app.news.presentation.components.NewsItemComponent
 import com.example.newsapp.app.news.presentation.components.NewsSkeletonLoader
-import com.example.newsapp.app.ui.theme.Shapes
 import com.example.newsapp.services.api.utils.ApiResponse
 
 @Composable
@@ -91,7 +96,7 @@ private fun Success(news: List<News>) {
 @Composable
 private fun SearchBar(
     text: String,
-    onSearch: (String) -> Unit
+    onSearch: (String) -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -100,18 +105,31 @@ private fun SearchBar(
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth(),
+            maxLines = 1,
             value = text,
             onValueChange = onSearch,
             label = { Text(text = "Pesquisa") },
             shape = RoundedCornerShape(24.dp),
-        )
-
-        Image(
-            painterResource(id = android.R.drawable.ic_menu_search),
-            contentDescription = "Search Icon",
-            modifier = Modifier
-                .padding(end = 16.dp)
-                .align(Alignment.CenterEnd)
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Uri,
+                imeAction = ImeAction.Search
+            ),
+            keyboardActions = KeyboardActions(
+                onSearch = {
+                    onSearch(text)
+                }
+            ),
+            trailingIcon = {
+                IconButton(
+                    onClick = { onSearch(text) }
+                ) {
+                    Icon(
+                        painter = painterResource(id = android.R.drawable.ic_menu_search),
+                        contentDescription = "Search Icon",
+                        tint = Color.Unspecified
+                    )
+                }
+            }
         )
     }
 }
