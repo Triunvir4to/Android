@@ -1,10 +1,8 @@
 package com.example.newsapp.app.home.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.api.ApiResponse
-import com.example.newsapp.app.news.data.model.News
 import com.example.newsapp.app.news.data.response.NewsResponse
 import com.example.newsapp.app.news.domain.usecase.GetNewsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,30 +24,17 @@ class HomeViewModel @Inject constructor(
     val state = _state as StateFlow<ApiResponse<NewsResponse>>
 
     init {
-        viewModelScope.launch {
-            val result = getNews()
-            result.forEach {
-                Log.d(tag, it.title)
-            }
-        }
+        getNews()
     }
 
-    private suspend fun getNews(): List<News> {
-        _state.tryEmit(ApiResponse.Loading)
-        val request = getNewsUseCase.invoke(
-            context = Dispatchers.IO
-        )
+    fun getNews() {
+        viewModelScope.launch {
+            _state.tryEmit(ApiResponse.Loading)
+            val request = getNewsUseCase.invoke(
+                context = Dispatchers.IO
+            )
 
-        _state.tryEmit(request)
-
-        return when (request) {
-            is ApiResponse.Success -> {
-                request.response.body.news
-            }
-
-            else -> {
-                emptyList()
-            }
+            _state.tryEmit(request)
         }
     }
 }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +32,10 @@ private fun Loading() {
 }
 
 @Composable
-private fun Fail(error: ApiResponse.Error) {
+private fun Fail(
+    error: ApiResponse.Error,
+    viewModel: HomeViewModel
+) {
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -40,6 +44,9 @@ private fun Fail(error: ApiResponse.Error) {
     ) {
         Text(text = "Failed")
         Text(text = error.message)
+        Button(onClick = { viewModel.getNews() }) {
+            Text(text = "Retry")
+        }
     }
 }
 
@@ -70,7 +77,10 @@ fun HomeScreen() {
 
         is ApiResponse.Fail -> {
             val error = response.error
-            Fail(error = error)
+            Fail(
+                error = error,
+                viewModel = homeViewModel
+            )
         }
 
         is ApiResponse.Success -> {
