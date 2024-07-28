@@ -41,6 +41,7 @@ import com.example.newsapp.services.api.utils.ApiResponse
 @Composable
 private fun Fail(
     error: ApiResponse.Error,
+    searchText: String,
     viewModel: HomeViewModel
 ) {
     Column(
@@ -51,7 +52,7 @@ private fun Fail(
     ) {
         Text(text = "Failed")
         Text(text = error.message)
-        Button(onClick = { viewModel.getNews() }) {
+        Button(onClick = { viewModel.getNews(text = searchText) }) {
             Text(text = "Retry")
         }
     }
@@ -146,6 +147,7 @@ fun HomeScreen() {
     ) {
         SearchBar(text = searchText.value) {
             searchText.value = it
+            homeViewModel.getNews(text = it)
         }
 
         Spacer(
@@ -162,6 +164,7 @@ fun HomeScreen() {
                 val error = response.error
                 Fail(
                     error = error,
+                    searchText = searchText.value,
                     viewModel = homeViewModel
                 )
             }

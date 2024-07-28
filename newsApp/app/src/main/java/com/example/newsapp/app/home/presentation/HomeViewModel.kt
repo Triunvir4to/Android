@@ -7,6 +7,7 @@ import com.example.newsapp.app.news.data.response.NewsResponse
 import com.example.newsapp.app.news.domain.usecase.GetNewsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -23,14 +24,22 @@ class HomeViewModel @Inject constructor(
     private val _state = MutableStateFlow<ApiResponse<NewsResponse>>(ApiResponse.Loading)
     val state = _state as StateFlow<ApiResponse<NewsResponse>>
 
+    private var job: Job? = null
+
     init {
         getNews()
     }
 
-    fun getNews() {
-        viewModelScope.launch {
+    fun getNews(
+        text: String? = null,
+        country: String? = null,
+    ) {
+        job?.cancel()
+        job = viewModelScope.launch {
             _state.tryEmit(ApiResponse.Loading)
             val request = getNewsUseCase.invoke(
+                text = text,
+                country = country,
                 context = Dispatchers.IO
             )
 
