@@ -16,6 +16,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.newsapp.app.components.SkeletonLoader
 import com.example.newsapp.app.news.data.model.News
 import com.example.newsapp.app.ui.theme.Shapes
 
@@ -58,4 +59,15 @@ fun NewsItemComponent(news: News) {
         )
 
     }
+}
+
+@Composable
+fun NewsSkeletonLoader() {
+    SkeletonLoader(
+        modifier = Modifier
+            .padding(top = 8.dp, bottom = 8.dp)
+            .fillMaxWidth()
+            .height(130.dp),
+        shape = Shapes.extraLarge
+    )
 }
