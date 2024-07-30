@@ -71,7 +71,7 @@ class CustomNavType<T : Serializable>(
          * @param serializer The [KSerializer] for the [Serializable] type.
          * @return A map of [KType] to [CustomNavType].
          */
-        inline fun <reified T : Serializable> getCustomNavTypeMap(serializer: KSerializer<T>): Map<KType, CustomNavType<T>> =
+        inline fun <reified T : Serializable> getTypeMap(serializer: KSerializer<T>): Map<KType, CustomNavType<T>> =
             mapOf(
                 typeOf<T>() to CustomNavType(T::class.java, serializer),
             )
