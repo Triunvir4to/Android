@@ -31,12 +31,18 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.newsapp.app.news.data.model.News
+import com.example.newsapp.config.navigation.serializableType
 import kotlinx.serialization.Serializable
+import kotlin.reflect.typeOf
 
 @Serializable
 data class NewsDetailsScreen(
     val news: News
-)
+){
+    companion object{
+        val typeMap = mapOf(typeOf<News>() to serializableType<News>())
+    }
+}
 
 @Composable
 fun NewsDetails(

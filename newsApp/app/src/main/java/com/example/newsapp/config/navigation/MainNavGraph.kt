@@ -27,7 +27,7 @@ fun MainNavGraph(
         }
 
         composable<NewsDetailsScreen>(
-            typeMap = mapOf(typeOf<News>() to parcelableType<News>())
+            typeMap = NewsDetailsScreen.typeMap
         ) {
             val newsDetailsScreen: NewsDetailsScreen = it.toRoute<NewsDetailsScreen>()
 

@@ -1,7 +1,5 @@
 package com.example.newsapp.app.news.data.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
