@@ -19,8 +19,6 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel(
 
 ) {
-    private val tag = "HomeViewModel"
-
     private val _state = MutableStateFlow<ApiResponse<NewsResponse>>(ApiResponse.Loading)
     val state = _state as StateFlow<ApiResponse<NewsResponse>>
 

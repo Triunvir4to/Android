@@ -36,14 +36,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.newsapp.app.news.data.model.News
-import com.example.newsapp.app.news.presentation.NewsDetailsScreen
 import com.example.newsapp.app.news.presentation.components.NewsItemComponent
 import com.example.newsapp.app.news.presentation.components.NewsSkeletonLoader
 import com.example.newsapp.services.api.utils.ApiResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
-object HomeScreen
+object HomeScreenData
 
 @Composable
 private fun Fail(
@@ -103,7 +102,7 @@ private fun Success(
                 news = article,
                 onClick = {
                     navController
-                        .navigate(NewsDetailsScreen(article))
+                        .navigate(article)
                 }
             )
         }
@@ -152,27 +151,9 @@ private fun SearchBar(
 }
 
 @Composable
-fun Home(
+fun HomeScreen(
     navController: NavController
 ) {
-    navController.navigate(NewsDetailsScreen(
-        news = News(
-            author = "John Doe",
-            catgory = "Technology",
-            authors = listOf("John Doe", "Jane Smith"),
-            id = 1,
-            image = "https://example.com/image.jpg",
-            video = "https://example.com/video.mp4",
-            language = "en",
-            publishDate = "2024-07-28",
-            sentiment = 0.5,
-            sourceCountry = "USA",
-            summary = "This is a summary of the latest technology news.",
-            text = "Detailed article text goes here. This part will contain the full article content, discussing the latest advancements in technology and their implications.",
-            title = "Breaking Tech News!",
-            url = "https://example.com/full-article"
-        )
-    ))
     val homeViewModel: HomeViewModel = hiltViewModel()
     val uiState = homeViewModel.state.collectAsState()
     val searchText = remember { mutableStateOf("") }
@@ -219,7 +200,7 @@ fun Home(
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    Home(
+    HomeScreen(
         rememberNavController()
     )
 }

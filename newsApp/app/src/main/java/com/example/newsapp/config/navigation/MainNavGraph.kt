@@ -5,12 +5,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.example.newsapp.app.home.presentation.Home
 import com.example.newsapp.app.home.presentation.HomeScreen
+import com.example.newsapp.app.home.presentation.HomeScreenData
 import com.example.newsapp.app.news.data.model.News
-import com.example.newsapp.app.news.presentation.NewsDetails
 import com.example.newsapp.app.news.presentation.NewsDetailsScreen
-import kotlin.reflect.typeOf
 
 @Composable
 fun MainNavGraph(
@@ -18,22 +16,21 @@ fun MainNavGraph(
 ) {
     NavHost(
         navController = navHostController,
-        startDestination = HomeScreen
+        startDestination = HomeScreenData
     ) {
-        composable<HomeScreen> {
-            Home(
+        composable<HomeScreenData> {
+            HomeScreen(
                 navController = navHostController
             )
         }
 
-        composable<NewsDetailsScreen>(
-            typeMap = NewsDetailsScreen.typeMap
+        composable<News>(
         ) {
-            val newsDetailsScreen: NewsDetailsScreen = it.toRoute<NewsDetailsScreen>()
+            val news: News = it.toRoute<News>()
 
-            NewsDetails(
+            NewsDetailsScreen(
                 navController = navHostController,
-                news = newsDetailsScreen.news
+                news = news
             )
         }
     }

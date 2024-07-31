@@ -25,27 +25,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.newsapp.app.news.data.model.News
-import com.example.newsapp.config.navigation.serializableType
-import kotlinx.serialization.Serializable
-import kotlin.reflect.typeOf
-
-@Serializable
-data class NewsDetailsScreen(
-    val news: News
-){
-    companion object{
-        val typeMap = mapOf(typeOf<News>() to serializableType<News>())
-    }
-}
 
 @Composable
-fun NewsDetails(
+fun NewsDetailsScreen(
     navController: NavController,
     news: News
 ) {
@@ -114,7 +103,7 @@ fun NewsDetails(
                 .padding(vertical = 16.dp)
                 .width(300.dp)
                 .clip(RoundedCornerShape(16.dp))
-                .background(Color.LightGray)
+                .background(MaterialTheme.colorScheme.onSurface)
                 .padding(16.dp)
                 .constrainAs(summary) {
                     top.linkTo(topSpace.bottom)
@@ -124,17 +113,21 @@ fun NewsDetails(
                 }) {
                 Text(
                     text = news.publishDate,
-                    fontSize = 12.sp
+                    fontSize = 12.sp,
+                    color = MaterialTheme.colorScheme.surface
                 )
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = news.title, fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.surface
                 )
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = news.authors?.joinToString(", ") ?: "",
-                    fontSize = 10.sp
+                    lineHeight = 1.sp,
+                    text = news.authors?.joinToString(", ") ?: news.author ?: "",
+                    fontSize = 10.sp,
+                    color = MaterialTheme.colorScheme.surface
                 )
             }
 
