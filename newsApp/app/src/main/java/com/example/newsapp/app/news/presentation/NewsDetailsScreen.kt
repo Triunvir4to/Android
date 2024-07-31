@@ -88,7 +88,7 @@ fun NewsDetailsScreen(
                     bottom.linkTo(parent.bottom)
                     height = Dimension.wrapContent
                 }
-                .padding(top = 16.dp)
+                .padding(top = 32.dp)
                 .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
                 .background(MaterialTheme.colorScheme.surface)
                 .padding(vertical = 50.dp, horizontal = 16.dp)) {
