@@ -93,4 +93,8 @@ dependencies {
     implementation(kotlin("reflect"))
     implementation(libs.classgraph)
     implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    annotationProcessor(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
 }

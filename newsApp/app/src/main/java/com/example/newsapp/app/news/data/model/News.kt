@@ -1,9 +1,11 @@
 package com.example.newsapp.app.news.data.model
 
+import androidx.room.Entity
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+@Entity(tableName = "news")
 data class News(
     val author: String?,
     val catgory: String? = null,
