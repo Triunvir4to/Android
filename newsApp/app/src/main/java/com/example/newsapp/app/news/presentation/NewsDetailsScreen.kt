@@ -16,19 +16,20 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.newsapp.app.news.data.model.News
@@ -38,6 +39,7 @@ fun NewsDetailsScreen(
     navController: NavController,
     news: News
 ) {
+    val newsViewModel: NewsDetailsViewModel = hiltViewModel()
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -130,8 +132,20 @@ fun NewsDetailsScreen(
                     color = MaterialTheme.colorScheme.surface
                 )
             }
-
         }
+
+        Image(
+            imageVector = Icons.Filled.AddCircle,
+            contentDescription = "Add to favorite Button",
+            modifier = Modifier
+                .padding(16.dp)
+                .height(48.dp)
+                .width(48.dp)
+                .align(Alignment.BottomEnd)
+                .clickable {
+                    newsViewModel.addNews(news)
+                }
+        )
     }
 
 }
