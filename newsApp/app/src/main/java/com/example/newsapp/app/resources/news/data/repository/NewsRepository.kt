@@ -1,9 +1,9 @@
-package com.example.newsapp.app.news.data.repository
+package com.example.newsapp.app.resources.news.data.repository
 
 import com.example.newsapp.services.api.utils.ApiResponse
-import com.example.newsapp.app.news.data.response.NewsResponse
-import com.example.newsapp.app.news.domain.NewsApiCaller
-import com.example.newsapp.app.news.domain.repository.INewsRepository
+import com.example.newsapp.app.resources.news.data.response.NewsResponse
+import com.example.newsapp.app.resources.news.domain.NewsApiCaller
+import com.example.newsapp.app.resources.news.domain.repository.INewsRepository
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 

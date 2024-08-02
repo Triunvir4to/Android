@@ -1,6 +1,6 @@
-package com.example.newsapp.app.news.data.response
+package com.example.newsapp.app.resources.news.data.response
 
-import com.example.newsapp.app.news.data.model.News
+import com.example.newsapp.app.resources.news.data.model.News
 import kotlinx.serialization.Serializable
 
 @Serializable

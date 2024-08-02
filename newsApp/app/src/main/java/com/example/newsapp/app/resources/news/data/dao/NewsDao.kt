@@ -1,10 +1,10 @@
-package com.example.newsapp.app.news.data.dao
+package com.example.newsapp.app.resources.news.data.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.newsapp.app.news.data.model.News
+import com.example.newsapp.app.resources.news.data.model.News
 import kotlinx.coroutines.flow.Flow
 
 @Dao

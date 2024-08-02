@@ -1,8 +1,8 @@
-package com.example.newsapp.app.news.domain.usecase
+package com.example.newsapp.app.resources.news.domain.usecase
 
 import com.example.newsapp.services.api.utils.ApiResponse
-import com.example.newsapp.app.news.data.repository.NewsRepository
-import com.example.newsapp.app.news.data.response.NewsResponse
+import com.example.newsapp.app.resources.news.data.repository.NewsRepository
+import com.example.newsapp.app.resources.news.data.response.NewsResponse
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 

@@ -1,10 +1,10 @@
-package com.example.newsapp.app.news.domain
+package com.example.newsapp.app.resources.news.domain
 
 import com.example.newsapp.services.api.ApiCaller
 import com.example.newsapp.services.api.config.ApiImplementation
 import com.example.newsapp.services.api.utils.ApiResponse
 import com.example.newsapp.services.api.config.ApiService
-import com.example.newsapp.app.news.data.response.NewsResponse
+import com.example.newsapp.app.resources.news.data.response.NewsResponse
 import com.example.newsapp.services.env.EnvReader
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext

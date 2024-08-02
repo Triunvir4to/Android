@@ -1,4 +1,4 @@
-package com.example.newsapp.app.home.presentation
+package com.example.newsapp.app.resources.home.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,9 +35,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.newsapp.app.news.data.model.News
-import com.example.newsapp.app.news.presentation.components.NewsItemComponent
-import com.example.newsapp.app.news.presentation.components.NewsSkeletonLoader
+import com.example.newsapp.app.resources.news.data.model.News
+import com.example.newsapp.app.resources.news.presentation.components.NewsItemComponent
+import com.example.newsapp.app.resources.news.presentation.components.NewsSkeletonLoader
 import com.example.newsapp.services.api.utils.ApiResponse
 import kotlinx.serialization.Serializable
 

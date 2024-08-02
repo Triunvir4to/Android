@@ -1,9 +1,9 @@
-package com.example.newsapp.app.news.di
+package com.example.newsapp.app.resources.news.di
 
 import android.content.Context
-import com.example.newsapp.app.news.data.database.NewsDatabase
-import com.example.newsapp.app.news.data.repository.NewsRepository
-import com.example.newsapp.app.news.domain.NewsApiCaller
+import com.example.newsapp.app.resources.news.data.database.NewsDatabase
+import com.example.newsapp.app.resources.news.data.repository.NewsRepository
+import com.example.newsapp.app.resources.news.domain.NewsApiCaller
 import com.example.newsapp.services.api.config.ApiService
 import com.example.newsapp.services.env.EnvReader
 import dagger.Module

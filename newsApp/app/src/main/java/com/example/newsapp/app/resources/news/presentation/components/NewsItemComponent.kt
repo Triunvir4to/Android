@@ -1,4 +1,4 @@
-package com.example.newsapp.app.news.presentation.components
+package com.example.newsapp.app.resources.news.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.newsapp.app.components.SkeletonLoader
-import com.example.newsapp.app.news.data.model.News
+import com.example.newsapp.app.resources.news.data.model.News
 import com.example.newsapp.app.ui.theme.Shapes
 
 /**

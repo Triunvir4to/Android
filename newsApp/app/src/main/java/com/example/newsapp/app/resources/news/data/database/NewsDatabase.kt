@@ -1,11 +1,11 @@
-package com.example.newsapp.app.news.data.database
+package com.example.newsapp.app.resources.news.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.newsapp.app.news.data.dao.NewsDao
-import com.example.newsapp.app.news.data.model.News
+import com.example.newsapp.app.resources.news.data.dao.NewsDao
+import com.example.newsapp.app.resources.news.data.model.News
 
 @Database(entities = [News::class], version = 1, exportSchema = false)
 abstract class NewsDatabase : RoomDatabase(

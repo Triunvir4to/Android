@@ -1,10 +1,10 @@
-package com.example.newsapp.app.news.presentation
+package com.example.newsapp.app.resources.news.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.newsapp.app.news.data.dao.NewsDao
-import com.example.newsapp.app.news.data.database.NewsDatabase
-import com.example.newsapp.app.news.data.model.News
+import com.example.newsapp.app.resources.news.data.dao.NewsDao
+import com.example.newsapp.app.resources.news.data.database.NewsDatabase
+import com.example.newsapp.app.resources.news.data.model.News
 import com.example.newsapp.services.loader.state.State
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

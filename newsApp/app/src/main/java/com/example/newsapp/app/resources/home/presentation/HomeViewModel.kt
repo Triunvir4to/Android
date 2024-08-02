@@ -1,10 +1,10 @@
-package com.example.newsapp.app.home.presentation
+package com.example.newsapp.app.resources.home.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.services.api.utils.ApiResponse
-import com.example.newsapp.app.news.data.response.NewsResponse
-import com.example.newsapp.app.news.domain.usecase.GetNewsUseCase
+import com.example.newsapp.app.resources.news.data.response.NewsResponse
+import com.example.newsapp.app.resources.news.domain.usecase.GetNewsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
