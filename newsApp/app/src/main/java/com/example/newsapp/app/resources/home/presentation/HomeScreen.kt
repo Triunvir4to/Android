@@ -8,9 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -26,7 +23,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -35,9 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.newsapp.app.resources.news.data.model.News
-import com.example.newsapp.app.resources.news.presentation.components.NewsItemComponent
-import com.example.newsapp.app.resources.news.presentation.components.NewsSkeletonLoader
+import com.example.newsapp.app.resources.news.presentation.components.NewsListComponent
+import com.example.newsapp.app.resources.news.presentation.components.NewsListComponentLoading
 import com.example.newsapp.services.api.utils.ApiResponse
 import kotlinx.serialization.Serializable
 
@@ -60,51 +55,6 @@ private fun Fail(
         Text(text = error.message)
         Button(onClick = { viewModel.getNews(text = searchText) }) {
             Text(text = "Retry")
-        }
-    }
-}
-
-@Composable
-fun MainContentBackground(renderingItems: LazyListScope.() -> Unit) {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        item {
-            Text(text = "Notícias")
-        }
-        renderingItems()
-    }
-}
-
-@Composable
-private fun Loading() {
-    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
-    val skeletonHeight = 130.dp
-    val count = (screenHeight / skeletonHeight).toInt()
-    MainContentBackground {
-        repeat(count) {
-            item {
-                NewsSkeletonLoader()
-            }
-        }
-    }
-}
-
-@Composable
-private fun Success(
-    navController: NavController,
-    news: List<News>
-) {
-    MainContentBackground {
-        items(news) { article ->
-            NewsItemComponent(
-                news = article,
-                onClick = {
-                    navController
-                        .navigate(article)
-                }
-            )
         }
     }
 }
@@ -174,7 +124,7 @@ fun HomeScreen(
 
         when (val response = uiState.value) {
             is ApiResponse.Loading -> {
-                Loading()
+                NewsListComponentLoading()
             }
 
             is ApiResponse.Fail -> {
@@ -188,7 +138,7 @@ fun HomeScreen(
 
             is ApiResponse.Success -> {
                 val news = response.response.body.news
-                Success(
+                NewsListComponent(
                     news = news,
                     navController = navController
                 )
