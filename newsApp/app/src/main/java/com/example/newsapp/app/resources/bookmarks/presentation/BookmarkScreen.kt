@@ -13,7 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.newsapp.app.resources.news.presentation.components.NewsListComponent
 
-object Bookmark
+object BookmarkScreenData
 
 @Composable
 fun BookmarkScreen(
