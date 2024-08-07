@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.example.newsapp.app.components.BottomBar
 import com.example.newsapp.config.navigation.main.MainNavGraph
+import com.example.newsapp.config.navigation.main.screen.NavigableScreen
 
 @Composable
 fun MainLayout(
@@ -19,7 +20,11 @@ fun MainLayout(
             .fillMaxSize(),
         bottomBar = {
             BottomBar(
-                navController = navController
+                navController = navController,
+                screens = listOf(
+                    NavigableScreen.Home,
+                    NavigableScreen.Bookmark
+                )
             )
         }
     ) {
