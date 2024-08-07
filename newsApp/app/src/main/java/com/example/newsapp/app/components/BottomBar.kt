@@ -6,6 +6,9 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.newsapp.services.screen.BottomBarScreen
@@ -18,22 +21,29 @@ fun BottomBar(
     BottomAppBar {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
-        screens.forEach {
-            NavigationBarItem(
-                selected = currentDestination == it.identifier,
-                onClick = {
-                    navController.navigate(it.identifier)
-                },
-                icon = {
-                    Image(
-                        imageVector = it.icon,
-                        contentDescription = "${it.title} Icon"
-                    )
-                },
-                label = {
-                    Text(it.title)
-                }
-            )
+        val currentScreenTitle = remember { mutableStateOf("Home") }
+
+        screens.forEach { screen ->
+            currentDestination?.hierarchy?.let {
+                NavigationBarItem(
+                    selected = it.any {
+                        currentScreenTitle.value == screen.title
+                    },
+                    onClick = {
+                        currentScreenTitle.value = screen.title
+                        navController.navigate(screen.identifier)
+                    },
+                    icon = {
+                        Image(
+                            imageVector = screen.icon,
+                            contentDescription = "${screen.title} Icon"
+                        )
+                    },
+                    label = {
+                        Text(screen.title)
+                    }
+                )
+            }
         }
     }
 }
