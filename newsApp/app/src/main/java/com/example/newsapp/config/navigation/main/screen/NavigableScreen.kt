@@ -1,6 +1,7 @@
 package com.example.newsapp.config.navigation.main.screen
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -24,8 +25,8 @@ sealed class NavigableScreen(
     )
 
     data object Bookmark : NavigableScreen(
-        title = "Settings",
+        title = "Favorites",
         identifier = BookmarkScreenData,
-        icon = Icons.Default.Settings
+        icon = Icons.Default.Favorite
     )
 }

@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.example.newsapp.app.resources.bookmarks.presentation.Bookmark
+import com.example.newsapp.app.resources.bookmarks.presentation.BookmarkScreenData
 import com.example.newsapp.app.resources.bookmarks.presentation.BookmarkScreen
 import com.example.newsapp.app.resources.home.presentation.HomeScreen
 import com.example.newsapp.app.resources.home.presentation.HomeScreenData
@@ -35,7 +35,7 @@ fun MainNavGraph(
             )
         }
 
-        composable<Bookmark> {
+        composable<BookmarkScreenData> {
             BookmarkScreen(
                 navController = navHostController
             )
